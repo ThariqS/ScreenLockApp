@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent" >
+
+    <include layout="@layout/crope_wallpaper" />
+
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:orientation="vertical" >
+
+        <!-- Widget Layout -->
+	    <FrameLayout 
+	        android:id="@+id/crope_lock_widget_layout"
+            android:paddingTop="10dp"
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content" />
+
+	    <View
+	        android:layout_width="fill_parent"
+	        android:layout_height="0dp"
+	        android:layout_weight="1" />
+
+	    <!-- Dock Layout -->
+	    <LinearLayout
+            android:layout_marginBottom="10dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+	        android:layout_width="fill_parent"
+	        android:layout_height="100dp"
+	        android:allowSingleTap="false"
+	        android:handle="@+id/handle"
+	        android:content="@+id/content"
+            android:orientation="vertical">
+
+	        <TextView
+	            android:id="@id/handle"
+                android:paddingLeft="10dp"
+                android:paddingRight="10dp"
+                android:paddingBottom="10dp"
+                android:gravity="center"
+	            android:layout_width="fill_parent"
+	            android:layout_height="wrap_content"
+                android:background="@drawable/dockbar_pull"
+	            android:text="@string/app_name" />
+
+	        <include layout="@layout/crope_dock" />
+
+	    </LinearLayout>
+    
+        <include layout="@layout/crope_admob"/>
+
+    </LinearLayout>
+
+</FrameLayout>

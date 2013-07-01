@@ -1,0 +1,219 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">リンガロック</string>
+    <string name="full_name">リンガロック feat. ADWテーマ</string>
+    <string name="widget_clock_name">リンガロックウィジェット(時計)</string>
+
+    <string name="theme_description">リンガロックのデフォルトADWテーマです。</string>
+
+    <string name="about">リンガロックについて</string>
+    <string name="rate">評価する</string>
+    <string name="details">詳細</string>
+    <string name="_default">デフォルト</string>
+    <string name="theme">テーマ</string>
+    <string name="adw_theme">ADWテーマ</string>
+    <string name="veil">ベール</string>
+    <string name="close">閉じる</string>
+
+    <string name="camera">カメラ</string>
+    <string name="browser">ブラウザ</string>
+    <string name="message">メッセージ</string>
+
+    <string name="before">設定前</string>
+    <string name="after">設定後</string>
+
+    <string name="no_data">No Data</string>
+
+    <string name="screen_lock">スクリーンロック</string>
+    <string name="screen_lock_summary">Start screen lock application</string>
+    <string name="screen_lock_summary_on">スクリーンロックが設定されています</string>
+    <string name="screen_lock_summary_off">スクリーンロックが解除されています</string>
+
+    <string name="not_found_market">Google Playストアが見つかりません</string>
+    <string name="not_found_app">アプリケーションが見つかりません</string>
+
+    <string name="general_behavior">基本設定</string>
+    <string name="general_behavior_summary">アプリケーションの基本設定を行います</string>
+
+    <string name="ui_settings">UI設定</string>
+    <string name="ui_settings_summary">ユーザーインターフェースの設定を行います</string>
+
+    <string name="theme_settings">テーマ設定</string>
+    <string name="theme_settings_summary">リンガロックのテーマを設定します</string>
+
+    <string name="preference_dock">ドック</string>
+    <string name="preference_dock_summary">Dock on screen lock configuration</string>
+
+    <string name="backup_and_restore">バックアップ/リストア</string>
+    <string name="backup_and_restore_summary">リンガロックの設定を保存/読み込みします</string>
+
+    <string name="preview_screen_lock">スクリーンロック確認</string>
+    <string name="preview_screen_lock_summary">スクリーンロックの状態を確認します</string>
+
+    <string name="about_summary">リンガロック feat. ADWテーマとは</string>
+
+    <string name="reset_preferences">リンガロックをリセット</string>
+    <string name="reset_preferences_summary">リンガロックを初期化して再起動します</string>
+
+    <string name="build_information">ビルド情報</string>
+    <string name="version">バージョン</string>
+
+    <string name="help">ヘルプ</string>
+    <string name="help_summary">マニュアル</string>
+    <string name="help_first_message">リンガロックはロック画面をコントロールできるアプリケーションです。\n\n端末の電源ボタンをONするだけで、アプリケーションやウィジェット等をご利用いただけます。</string>
+    <string name="help_widget_message">ウィジェットエリアの初期設定時は、アナログ時計が表示されています。端末にインストールされているウィジェットに変更することができます。</string>
+    <string name="help_dock_message">ドックエリアには、5個のアプリケーションを置くことができます。使用頻度の高いアプリケーションを設定しておくと便利です。</string>
+    <string name="help_unlock_message">リンガロック内のスペースをスライドすることで解除できます。リンガロックではベールを表示させることができます。ベールはGoogle Playストアからインストールできます。</string>
+
+    <string name="legal_policy">Legal Policy</string>
+
+    <string name="member">メンバー</string>
+    <string name="member_summary">リンガロックの協力者達</string>
+    
+    <string name="internationalization">国際化</string>
+    <string name="internationalization_summary">スペシャルサンクス</string>
+
+    <string name="change_log">更新履歴</string>
+    <string name="change_log_summary">リンガロックの歴史</string>
+
+    <string name="open_source_license">オープンソースライセンス</string>
+    <string name="open_source_license_summary">オープンソースソフトウェアのライセンス詳細</string>
+
+    <string name="ask_backup_settings">リンガロックの設定を保存しますか？</string>
+    <string name="ask_restore_settings">リンガロックの設定を保存しますか？</string>
+
+    <string name="preference_veil">ベール</string>
+    <string name="preference_veil_summary">ベールを選択</string>
+    <string name="veil_mode">ベールモード</string>
+    <string-array name="veil_mode_entries">
+        <item>常に表示</item>
+        <item>常に隠す</item>
+        <item>タッチ時に表示</item>
+    </string-array>
+    <string-array name="veil_mode_entry_values">
+        <item>always_show</item>
+        <item>always_hide</item>
+        <item>touch_on_screen</item>
+    </string-array>
+    <string name="veil_mode_default_value">always_show</string>
+
+    <string name="unlock_process_default_value">long_tap</string>
+    <string name="select_veil">ベールを選択</string>
+    <string name="find_veil">ベールを探す</string>
+
+    <string name="veil_transparency">ベールの透過度の設定</string>
+    <string-array name="veil_transparency_entries">
+        <item>とても明るい</item>
+        <item>少し明るい</item>
+        <item>標準</item>
+        <item>少し濃い</item>
+        <item>とても濃い</item>
+    </string-array>
+    <string-array name="veil_transparency_entry_values">
+        <item>50</item>
+        <item>80</item>
+        <item>120</item>
+        <item>160</item>
+        <item>200</item>
+    </string-array>
+    <string name="veil_transparency_default_value">120</string>
+
+    <string name="unlock_slide_distance">スライド距離</string>
+    <string-array name="unlock_slide_distance_entries">
+        <item>とても短い</item>
+        <item>少し短い</item>
+        <item>標準</item>
+        <item>少し長い</item>
+        <item>とても長い</item>
+    </string-array>
+    <string-array name="unlock_slide_distance_entry_values">
+        <item>8000</item>
+        <item>20000</item>
+        <item>50000</item>
+        <item>75000</item>
+        <item>95000</item>
+    </string-array>
+    <string name="unlock_slide_distance_default_value">50000</string>
+
+    <string name="preference_lock">解除方法</string>
+    <string name="unlock_process">解除方法</string>
+    <string-array name="unlock_process_entries">
+        <item>タブルタップ</item>
+        <item>ロングタップ</item>
+        <item>スライドのみ</item>
+    </string-array>
+    <string-array name="unlock_process_entry_values">
+        <item>double_click</item>
+        <item>long_tap</item>
+        <item>nothing</item>
+    </string-array>
+
+    <string name="dock_show_mode">ドック表示方法</string>
+    <string-array name="dock_show_mode_entries">
+        <item>常に表示</item>
+        <item>常に隠す</item>
+        <item>スライドで表示</item>
+    </string-array>
+    <string-array name="dock_show_mode_entry_values">
+        <item>always_show</item>
+        <item>always_hide</item>
+        <item>show_by_slide</item>
+    </string-array>
+    <string name="dock_show_mode_default_value">always_show</string>
+
+    <string name="dock_launcher">ドックアプリケーション</string>
+    <string name="application1">アプリケーション 1</string>
+    <string name="application2">アプリケーション 2</string>
+    <string name="application3">アプリケーション 3</string>
+    <string name="application4">アプリケーション 4</string>
+    <string name="application5">アプリケーション 5</string>
+
+    <string name="wallpaper_transparent">壁紙の透過</string>
+    <string name="wallpaper_transparent_summary_on">ホーム画面の壁紙を表示する</string>
+    <string name="wallpaper_transparent_summary_off">ADWテーマの壁紙を表示する</string>
+    <string name="wallpaper_transparent_default_value">false</string>
+
+    <string name="preference_widget">ウィジェット</string>
+    <string name="display_widget">ウィジェット表示/非表示</string>
+    <string name="display_widget_default_value">true</string>
+    <string name="widget_id">ウィジェットの選択</string>
+
+    <string name="widget_position">位置</string>
+    <string name="widget_position_summary"></string>
+    <string-array name="widget_position_entries">
+        <item>左寄せ</item>
+        <item>中央</item>
+        <item>右寄せ</item>
+    </string-array>
+    <string-array name="widget_position_entry_value">
+        <item>left</item>
+        <item>center</item>
+        <item>right</item>
+    </string-array>
+    <string name="widget_position_default_value">center</string>
+
+    <string name="widget_clickable">Touch event</string>
+
+    <string name="find_widget">ウィジェットを探す</string>
+
+    <string name="preference_theme">テーマ</string>
+    <string name="select_theme">テーマを選択</string>
+    <string name="apply_theme_icon">テーマアイコンを選択</string>
+    <string name="apply_theme_icon_summary">ドックアイコンにテーマのアイコンを適用する</string>
+    <string name="find_theme">テーマを探す</string>
+
+    <string name="data_backup">リンガロックの設定を保存する</string>
+    <string name="data_backup_summary">/sdcard/lingua_lock.xmlに保存する</string>
+    <string name="data_restore">リンガロックの設定を読み込む</string>
+    <string name="data_restore_summary">/sdcard/lingua_lock.xmlから読み込む</string>
+
+    <string-array name="empty">
+    </string-array>
+
+    <!-- ImageView contentDescription -->
+    <string name="crope_lock_veil">unlock screen veil</string>
+    <string name="crope_lock_launcher">launcher shortcut</string>
+    <string name="icon_text_item_drawable">icon and text item drawable</string>
+    <string name="icon_preference_drawable">icon preference drawable</string>
+</resources>

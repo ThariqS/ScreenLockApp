@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <PreferenceCategory
+            android:title="@string/about">
+        <PreferenceScreen
+            android:title="@string/open_source_license"
+            android:summary="@string/open_source_license_summary" >
+            <intent
+                android:action="android.intent.action.MAIN"
+                android:targetPackage="org.uzero.android.crope"
+                android:targetClass="org.uzero.android.crope.activity.OpenSourceLicenseActivity" />
+        </PreferenceScreen>
+        <PreferenceScreen
+            android:title="@string/member"
+            android:summary="@string/member_summary" >
+            <intent
+                android:action="android.intent.action.MAIN"
+                android:targetPackage="org.uzero.android.crope"
+                android:targetClass="org.uzero.android.crope.activity.I18nPreferenceActivity" />
+        </PreferenceScreen>
+        <PreferenceScreen
+            android:title="@string/change_log"
+            android:summary="@string/change_log_summary" >
+            <intent
+                android:action="android.intent.action.MAIN"
+                android:targetPackage="org.uzero.android.crope"
+                android:targetClass="org.uzero.android.crope.activity.ChangeLogPreferenceActivity" />
+        </PreferenceScreen>
+    </PreferenceCategory>
+
+    <PreferenceCategory
+            android:title="@string/reset_preferences">
+	    <org.uzero.android.crope.preference.ResetCropePreference
+	        android:title="@string/reset_preferences"
+	        android:summary="@string/reset_preferences_summary"
+	        android:dialogMessage="@string/reset_preferences_summary"
+	        android:positiveButtonText="@android:string/ok"
+	        android:negativeButtonText="@android:string/cancel" />
+    </PreferenceCategory>
+
+</PreferenceScreen>

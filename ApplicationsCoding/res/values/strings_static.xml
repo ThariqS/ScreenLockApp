@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="static_search_widget">market://search?q=Widget</string>
+    <string name="static_search_veil">market://search?q=Lingua Veil</string>
+    <string name="static_search_theme">market://search?q=ADW Theme</string>
+    <string name="static_market_details">market://details?id=</string>
+
+    <string name="static_apache_license_uri">http://www.apache.org/licenses/LICENSE-2.0</string>
+
+    <string name="static_actionbarcompat">ActionBarCompat</string>
+
+    <string name="japanese_translater">Japanese Translater</string>
+    <string name="name_kazuhisa_ogami">Takashi Nitta</string>
+</resources>

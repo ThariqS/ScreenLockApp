@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <PreferenceCategory
+            android:title="@string/backup_and_restore">
+        <org.uzero.android.crope.preference.DataBackupPreference
+            android:key="@string/prefs_key_data_backup"
+            android:title="@string/data_backup"
+            android:summary="@string/data_backup_summary"
+            android:dialogMessage="@string/ask_backup_settings"
+            android:positiveButtonText="@android:string/ok"
+            android:negativeButtonText="@android:string/cancel" />
+        <org.uzero.android.crope.preference.DataRestorePreference
+            android:key="@string/prefs_key_data_restore"
+            android:title="@string/data_restore"
+            android:summary="@string/data_restore_summary"
+            android:dialogMessage="@string/ask_restore_settings"
+            android:positiveButtonText="@android:string/ok"
+            android:negativeButtonText="@android:string/cancel" />
+    </PreferenceCategory>
+
+</PreferenceScreen>

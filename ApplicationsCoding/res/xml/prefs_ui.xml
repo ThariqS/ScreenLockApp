@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <PreferenceCategory
+            android:title="@string/preference_widget">
+
+        <CheckBoxPreference
+            android:key="@string/prefs_key_widget_enabled"
+            android:title="@string/display_widget"
+            android:defaultValue="@string/display_widget_default_value" />
+        <PreferenceScreen
+            android:key="@string/prefs_key_widget_id"
+            android:title="@string/widget_id" />
+        <ListPreference
+            android:key="@string/prefs_key_widget_position"
+            android:title="@string/widget_position"
+            android:summary="@string/widget_position_summary"
+            android:entries="@array/widget_position_entries"
+            android:entryValues="@array/widget_position_entry_value"
+            android:defaultValue="@string/widget_position_default_value"
+            android:dialogTitle="@string/widget_position" />
+        <!-- 
+        <CheckBoxPreference
+            android:key="@string/prefs_key_widget_clickable"
+            android:title="@string/widget_clickable" />
+         -->
+        <PreferenceScreen
+            android:key="@string/prefs_key_find_widget"
+            android:title="@string/find_widget" >
+        </PreferenceScreen>
+    </PreferenceCategory>
+
+    <PreferenceCategory
+            android:title="@string/preference_veil">
+        <ListPreference
+            android:key="@string/prefs_key_veil_package"
+            android:title="@string/select_veil"
+            android:entries="@array/empty"
+            android:entryValues="@array/empty"
+            android:dialogTitle="@string/select_veil" />
+        <ListPreference
+            android:key="@string/prefs_key_veil_mode"
+            android:title="@string/veil_mode"
+            android:entries="@array/veil_mode_entries"
+            android:entryValues="@array/veil_mode_entry_values"
+            android:defaultValue="@string/veil_mode_default_value"
+            android:dialogTitle="@string/veil_mode" />
+        <ListPreference
+            android:key="@string/prefs_key_veil_transparency"
+            android:title="@string/veil_transparency"
+            android:summary="@string/veil_transparency_default_value"
+            android:entries="@array/veil_transparency_entries"
+            android:entryValues="@array/veil_transparency_entry_values"
+            android:defaultValue="@string/veil_transparency_default_value"
+            android:positiveButtonText="@android:string/ok"
+            android:negativeButtonText="@android:string/cancel" />
+        <PreferenceScreen
+            android:key="@string/prefs_key_find_veil"
+            android:title="@string/find_veil">
+        </PreferenceScreen>
+    </PreferenceCategory>
+
+</PreferenceScreen>

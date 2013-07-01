@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="versionname_code6">1.0.4</string>
+    <string name="changelog_code6">
+        - New setting, unlock slide distance\n
+        - Preview general behavior and settings\n
+        - Add \'about\' menu
+    </string>
+
+    <string name="versionname_code5">1.0.3</string>
+    <string name="changelog_code5">
+        - Fix bug, sheet preview after unlock\n
+        - Start Lingua Lock automatically on boot
+    </string>
+
+    <string name="versionname_code4">1.0.2</string>
+    <string name="changelog_code4">
+        - Support Japanese Launguage\n
+        - Change application icon\n
+        - Title bar is ActionBar like Android 4.0\n
+        - Max icon number on dock is 5\n
+        - Analog clock widget is default\n
+        - Changeable veil transparency\n
+        - Support home screen wallpaper\n
+        - Add ADW Theme detail page\n
+        - Fix many small bugs
+    </string>
+
+    <string name="versionname_code3">1.0.1</string>
+    <string name="changelog_code3">
+        - \'Back and Restore\' menu\n
+        - Minor bug fix
+    </string>
+
+    <string name="versionname_code2"></string>
+    <string name="changelog_code2">
+    </string>
+
+    <string name="versionname_code1">1.0.0</string>
+    <string name="changelog_code1">
+        - Initial Release
+    </string>
+
+</resources>

@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent" >
+
+    <RelativeLayout
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:orientation="vertical" 
+        >
+
+        <!-- Widget Layout -->
+
+	    <View
+	        android:layout_width="fill_parent"
+	        android:layout_height="0dp"
+	        android:layout_weight="1" />
+
+	   	<org.uzero.android.crope.CircularSeekBar 
+        android:id="@+id/circle_bar_1"
+        android:layout_height="500dp"
+        android:layout_width="500dp">
+        </org.uzero.android.crope.CircularSeekBar>
+
+
+    </RelativeLayout>
+
+</FrameLayout>

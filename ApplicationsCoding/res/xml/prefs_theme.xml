@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <PreferenceCategory
+            android:title="@string/preference_theme">
+        <CheckBoxPreference
+            android:key="@string/prefs_key_theme_icon"
+            android:title="@string/apply_theme_icon" />
+        <CheckBoxPreference
+            android:key="@string/prefs_key_wallpaper_transparent"
+            android:title="@string/wallpaper_transparent"
+            android:summaryOn="@string/wallpaper_transparent_summary_on"
+            android:summaryOff="@string/wallpaper_transparent_summary_off"
+            android:defaultValue="@string/wallpaper_transparent_default_value" />
+        <ListPreference
+            android:key="@string/prefs_key_theme_package"
+            android:title="@string/select_theme"
+            android:entries="@array/empty"
+            android:entryValues="@array/empty"
+            android:dialogTitle="@string/select_theme" />
+        <org.uzero.android.crope.preference.ThemeBannerPreference
+            android:key="@string/prefs_key_theme_banner"
+            android:layout="@layout/theme_banner_preference">
+	        <intent
+	            android:action="android.intent.action.MAIN"
+	            android:targetPackage="org.uzero.android.crope"
+	            android:targetClass="org.uzero.android.crope.activity.ThemeDetailActivity" />
+        </org.uzero.android.crope.preference.ThemeBannerPreference>
+        <PreferenceScreen
+            android:key="@string/prefs_key_find_theme"
+            android:title="@string/find_theme" />
+    </PreferenceCategory>
+
+</PreferenceScreen>

@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <PreferenceCategory
+            android:title="@string/preference_lock">
+        <ListPreference
+            android:key="@string/prefs_key_unlock_process"
+            android:title="@string/unlock_process"
+            android:entries="@array/unlock_process_entries"
+            android:entryValues="@array/unlock_process_entry_values"
+            android:defaultValue="@string/unlock_process_default_value"
+            android:dialogTitle="@string/unlock_process" />
+        <ListPreference
+            android:key="@string/prefs_key_unlock_slide_distance"
+            android:title="@string/unlock_slide_distance"
+            android:entries="@array/unlock_slide_distance_entries"
+            android:entryValues="@array/unlock_slide_distance_entry_values"
+            android:defaultValue="@string/unlock_slide_distance_default_value"
+            android:dialogTitle="@string/unlock_slide_distance" />
+    </PreferenceCategory>
+
+    <PreferenceCategory
+            android:title="@string/preference_dock">
+        <ListPreference
+            android:key="@string/prefs_key_dock_show_mode"
+            android:title="@string/dock_show_mode"
+            android:entries="@array/dock_show_mode_entries"
+            android:entryValues="@array/dock_show_mode_entry_values"
+            android:defaultValue="@string/dock_show_mode_default_value"
+            android:dialogTitle="@string/dock_show_mode" />
+    </PreferenceCategory>
+
+    <PreferenceCategory
+            android:title="@string/dock_launcher">
+        <org.uzero.android.crope.preference.LauncherPreference
+            android:layout="@layout/icon_preference"
+            android:key="@string/prefs_key_dock_launcher1"
+            android:title="@string/camera"
+            android:icon="@drawable/ic_launcher_camera"
+            android:entries="@array/dock_show_mode_entries"
+            android:entryValues="@array/dock_show_mode_entry_values"
+            android:defaultValue="@string/dock_show_mode_default_value" />
+
+        <org.uzero.android.crope.preference.LauncherPreference
+            android:layout="@layout/icon_preference"
+            android:key="@string/prefs_key_dock_launcher2"
+            android:title="@string/browser"
+            android:icon="@drawable/ic_launcher_browser"
+            android:entries="@array/dock_show_mode_entries"
+            android:entryValues="@array/dock_show_mode_entry_values"
+            android:defaultValue="@string/dock_show_mode_default_value" />
+
+        <org.uzero.android.crope.preference.LauncherPreference
+            android:layout="@layout/icon_preference"
+            android:key="@string/prefs_key_dock_launcher3"
+            android:title="@string/message"
+            android:icon="@drawable/ic_launcher_smsmms"
+            android:entries="@array/dock_show_mode_entries"
+            android:entryValues="@array/dock_show_mode_entry_values"
+            android:defaultValue="@string/dock_show_mode_default_value" />
+
+        <org.uzero.android.crope.preference.LauncherPreference
+            android:layout="@layout/icon_preference"
+            android:key="@string/prefs_key_dock_launcher4"
+            android:title="@string/application4"
+            android:entries="@array/dock_show_mode_entries"
+            android:entryValues="@array/dock_show_mode_entry_values"
+            android:defaultValue="@string/dock_show_mode_default_value" />
+
+        <org.uzero.android.crope.preference.LauncherPreference
+            android:layout="@layout/icon_preference"
+            android:key="@string/prefs_key_dock_launcher5"
+            android:title="@string/application5"
+            android:entries="@array/dock_show_mode_entries"
+            android:entryValues="@array/dock_show_mode_entry_values"
+            android:defaultValue="@string/dock_show_mode_default_value" />
+
+    </PreferenceCategory>
+</PreferenceScreen>

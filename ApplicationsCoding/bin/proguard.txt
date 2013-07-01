@@ -1,0 +1,89 @@
+# view AndroidManifest.xml #generated:109
+-keep class org.uzero.android.crope.BootReceiver { <init>(...); }
+
+# view AndroidManifest.xml #generated:108
+-keep class org.uzero.android.crope.BootService { <init>(...); }
+
+# view res/layout/crope_lock.xml #generated:19
+-keep class org.uzero.android.crope.CircularSeekBar { <init>(...); }
+
+# view AndroidManifest.xml #generated:20
+-keep class org.uzero.android.crope.CropeActivity { <init>(...); }
+
+# view AndroidManifest.xml #generated:81
+-keep class org.uzero.android.crope.CropeSettingActivity { <init>(...); }
+
+# view AndroidManifest.xml #generated:68
+-keep class org.uzero.android.crope.activity.AboutPreferenceActivity { <init>(...); }
+
+# view AndroidManifest.xml #generated:72
+-keep class org.uzero.android.crope.activity.ChangeLogPreferenceActivity { <init>(...); }
+
+# view AndroidManifest.xml #generated:50
+-keep class org.uzero.android.crope.activity.DataPreferenceActivity { <init>(...); }
+
+# view AndroidManifest.xml #generated:38
+-keep class org.uzero.android.crope.activity.GeneralPreferenceActivity { <init>(...); }
+
+# view AndroidManifest.xml #generated:63
+-keep class org.uzero.android.crope.activity.HelpActivity { <init>(...); }
+
+# view AndroidManifest.xml #generated:76
+-keep class org.uzero.android.crope.activity.I18nPreferenceActivity { <init>(...); }
+
+# view AndroidManifest.xml #generated:55
+-keep class org.uzero.android.crope.activity.OpenSourceLicenseActivity { <init>(...); }
+
+# view AndroidManifest.xml #generated:59
+-keep class org.uzero.android.crope.activity.ThemeDetailActivity { <init>(...); }
+
+# view AndroidManifest.xml #generated:46
+-keep class org.uzero.android.crope.activity.ThemePreferenceActivity { <init>(...); }
+
+# view AndroidManifest.xml #generated:42
+-keep class org.uzero.android.crope.activity.UIPreferenceActivity { <init>(...); }
+
+# view AndroidManifest.xml #generated:91
+-keep class org.uzero.android.crope.appwidget.AnalogClockWidget { <init>(...); }
+
+# view res/xml/prefs_data.xml #generated:6
+-keep class org.uzero.android.crope.preference.DataBackupPreference { <init>(...); }
+
+# view res/xml/prefs_data.xml #generated:13
+-keep class org.uzero.android.crope.preference.DataRestorePreference { <init>(...); }
+
+# view res/xml/prefs_general.xml #generated:35
+# view res/xml/prefs_general.xml #generated:44
+# view res/xml/prefs_general.xml #generated:53
+# view res/xml/prefs_general.xml #generated:62
+# view res/xml/prefs_general.xml #generated:70
+-keep class org.uzero.android.crope.preference.LauncherPreference { <init>(...); }
+
+# view res/xml/prefs_about.xml #generated:34
+-keep class org.uzero.android.crope.preference.ResetCropePreference { <init>(...); }
+
+# view res/xml/prefs_theme.xml #generated:21
+-keep class org.uzero.android.crope.preference.ThemeBannerPreference { <init>(...); }
+
+# view res/layout/crope_wallpaper.xml #generated:6
+-keep class org.uzero.android.crope.widget.MovieView { <init>(...); }
+
+# view AndroidManifest.xml #generated:101
+-keep class org.uzero.android.lock.ScreenReceiver { <init>(...); }
+
+# view AndroidManifest.xml #generated:100
+-keep class org.uzero.android.lock.ScreenService { <init>(...); }
+
+# onClick res/layout/help.xml #generated:2
+-keepclassmembers class * { *** onClick(...); }
+
+# onClick res/layout/crope_dock.xml #generated:11
+# onClick res/layout/crope_dock.xml #generated:23
+# onClick res/layout/crope_dock.xml #generated:35
+# onClick res/layout/crope_dock.xml #generated:46
+# onClick res/layout/crope_dock.xml #generated:58
+-keepclassmembers class * { *** onOptionClick(...); }
+
+# onClick res/layout/theme_detail.xml #generated:37
+-keepclassmembers class * { *** onThemeClick(...); }
+

@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="prefs_key_lock_enabled">lock_enabled</string>
+    <string name="prefs_key_widget_enabled">widget_enabled</string>
+    <string name="prefs_key_widget_id">widget_id</string>
+    <string name="prefs_key_unlock_process">unlock_process</string>
+    <string name="prefs_key_swype_unlock">swype_unlock</string>
+    <string name="prefs_key_unlock_slide_distance">unlock_slide_distance</string>
+    <string name="prefs_key_dock_show_mode">dock_show_mode</string>
+    <string name="prefs_key_widget_position">widget_position</string>
+    <string name="prefs_key_widget_clickable">widget_clickable</string>
+    <string name="prefs_key_find_widget">find_widget</string>
+    <string name="prefs_key_find_theme">find_theme</string>
+    <string name="prefs_key_theme_package">theme_package</string>
+    <string name="prefs_key_theme_icon">theme_icon</string>
+    <string name="prefs_key_theme_banner">theme_banner</string>
+    <string name="prefs_key_version">version</string>
+    <string name="prefs_key_wallpaper_transparent">wallpaper_transparent</string>
+    <string name="prefs_key_veil_package">veil_package</string>
+    <string name="prefs_key_veil_mode">veil_mode</string>
+    <string name="prefs_key_veil_transparency">veil_transparency</string>
+    <string name="prefs_key_find_veil">find_veil</string>
+
+    <string name="prefs_key_dock_launcher1">dock_launcher1</string>
+    <string name="prefs_key_dock_launcher2">dock_launcher2</string>
+    <string name="prefs_key_dock_launcher3">dock_launcher3</string>
+    <string name="prefs_key_dock_launcher4">dock_launcher4</string>
+    <string name="prefs_key_dock_launcher5">dock_launcher5</string>
+
+    <string name="prefs_key_data_backup">data_backup</string>
+    <string name="prefs_key_data_restore">data_restore</string>
+    <string name="prefs_key_preview_screen_lock">preview_screen_lock</string>
+
+</resources>

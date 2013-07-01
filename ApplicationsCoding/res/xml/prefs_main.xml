@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <CheckBoxPreference
+        android:key="@string/prefs_key_lock_enabled"
+        android:title="@string/screen_lock"
+        android:summaryOn="@string/screen_lock_summary_on"
+        android:summaryOff="@string/screen_lock_summary_off" />
+
+    <PreferenceScreen
+        android:key="@string/prefs_key_preview_screen_lock"
+        android:title="@string/preview_screen_lock"
+        android:summary="@string/preview_screen_lock_summary" >
+    </PreferenceScreen>
+
+    <PreferenceCategory
+            android:title="@string/build_information">
+        
+        <PreferenceScreen
+            android:title="@string/about"
+            android:summary="@string/about_summary" >
+            <intent
+                android:action="android.intent.action.MAIN"
+                android:targetPackage="org.uzero.android.crope"
+                android:targetClass="org.uzero.android.crope.activity.AboutPreferenceActivity" />
+        </PreferenceScreen>
+    </PreferenceCategory>
+
+</PreferenceScreen>

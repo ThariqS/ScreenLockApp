@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="versionname_code6">1.0.4</string>
+    <string name="changelog_code6">
+        - スライド解除時の距離設定を追加\n
+        - プレビュー画面の追加\n
+        - \'リンガロックについて\'の追加
+    </string>
+
+    <string name="versionname_code5">1.0.3</string>
+    <string name="changelog_code5">
+        - ロック解除後にシートプレビューが表示される不具合の改修\n
+        - ブート後のリンガロック自動起動\n
+    </string>
+
+    <string name="versionname_code4">1.0.2</string>
+    <string name="changelog_code4">
+        - 日本語のサポート\n
+        - アプリケーションアイコンの変更\n
+        - Android4.0ライクなアクションバー\n
+        - ドックアイコンを最大5つ表示\n
+        - アナログ時計をデフォルトで表示\n
+        - ベールの透過指定\n
+        - ホーム画面壁紙のサポート\n
+        - ADWテーマの詳細ページを追加\n
+        - 多くの微細な不具合の改修\n
+    </string>
+
+    <string name="versionname_code3">1.0.1</string>
+    <string name="changelog_code3">
+        - \'バックアップ/リストア\' メニュー追加\n
+        - マイナーバグ改修
+    </string>
+
+    <string name="versionname_code2"></string>
+    <string name="changelog_code2">
+    </string>
+
+    <string name="versionname_code1">1.0.0</string>
+    <string name="changelog_code1">
+        - 初回リリース
+    </string>
+
+</resources>

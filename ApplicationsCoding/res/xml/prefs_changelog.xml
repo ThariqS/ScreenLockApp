@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <PreferenceScreen
+        android:title="@string/versionname_code6"
+        android:summary="@string/changelog_code6" >
+    </PreferenceScreen>
+
+    <PreferenceScreen
+        android:title="@string/versionname_code5"
+        android:summary="@string/changelog_code5" >
+    </PreferenceScreen>
+    
+    <PreferenceScreen
+        android:title="@string/versionname_code4"
+        android:summary="@string/changelog_code4" >
+    </PreferenceScreen>
+    
+    <PreferenceScreen
+        android:title="@string/versionname_code3"
+        android:summary="@string/changelog_code3" >
+    </PreferenceScreen>
+    
+    <PreferenceScreen
+        android:title="@string/versionname_code1"
+        android:summary="@string/changelog_code1" >
+    </PreferenceScreen>
+    
+</PreferenceScreen>

@@ -1,0 +1,6 @@
+# view AndroidManifest.xml #generated:14
+-keep class org.uzero.android.lock.ScreenReceiver { <init>(...); }
+
+# view AndroidManifest.xml #generated:13
+-keep class org.uzero.android.lock.ScreenService { <init>(...); }
+

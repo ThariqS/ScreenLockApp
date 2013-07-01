@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/content"
+    android:layout_width="fill_parent"
+    android:background="@drawable/dockbar_bg"
+    android:layout_height="75dp"
+    android:gravity="center"
+    android:orientation="horizontal">
+
+
+     <Button
+     android:id="@+id/unlock_btn_1"
+     android:layout_height="65dp"
+     android:layout_width="65dp"
+     android:paddingLeft="10dp"
+     android:paddingRight="10dp"
+     android:paddingBottom="10dp"
+     android:text="=D"
+     android:lines="2"
+     android:onClick="onOptionClick" />
+
+
+     <Button
+     android:id="@+id/unlock_btn_2"
+     android:layout_height="65dp"
+     android:layout_width="65dp"
+     android:paddingLeft="10dp"
+     android:paddingRight="10dp"
+     android:paddingBottom="10dp"
+     android:text="=)"
+     android:lines="2"
+     android:onClick="onOptionClick" />
+
+
+     <Button
+     android:id="@+id/unlock_btn_3"
+     android:layout_height="65dp"
+     android:layout_width="65dp"
+     android:paddingLeft="10dp"
+     android:paddingRight="10dp"
+     android:paddingBottom="10dp"
+     android:text="=|"
+     android:lines="2"
+     android:onClick="onOptionClick" />
+
+     <Button
+     android:id="@+id/unlock_btn_4"
+     android:layout_height="65dp"
+     android:layout_width="65dp"
+     android:paddingLeft="10dp"
+     android:paddingRight="10dp"
+     android:paddingBottom="10dp"
+     android:text="=("
+     android:lines="2"
+     android:onClick="onOptionClick" />
+
+
+     <Button
+     android:id="@+id/unlock_btn_5"
+     android:layout_height="65dp"
+     android:layout_width="65dp"
+     android:paddingLeft="10dp"
+     android:paddingRight="10dp"
+     android:paddingBottom="10dp"
+     android:text="D="
+     android:lines="2"
+     android:onClick="onOptionClick" />
+
+</LinearLayout>
