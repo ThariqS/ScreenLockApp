@@ -24,7 +24,6 @@ public class CropeSettingActivity extends ActionBarPreferenceActivity {
 
 	public static final int RESULT_FINISH = 0x10;
 
-
 	private ScreenService mScreenService = null;
 
 	private ServiceConnection  mScreenServiceConn = null;
@@ -80,7 +79,15 @@ public class CropeSettingActivity extends ActionBarPreferenceActivity {
 		
 		else if(getString(R.string.prefs_key_preview_screen_lock).equals(preference.getKey())) {
 			Intent intent = new Intent(Intent.ACTION_VIEW);
-			intent.setClass(this, CropeActivity.class);
+			intent.setClass(this,CropeActivity.class);
+			intent.addCategory(Intent.CATEGORY_TEST);
+			intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
+			startActivity(intent);
+		}
+		
+		else if (getString(R.string.prefs_key_show_locations).equals(preference.getKey())) {
+			Intent intent = new Intent(Intent.ACTION_VIEW);
+			intent.setClass(this,LocationMapActivity.class);
 			intent.addCategory(Intent.CATEGORY_TEST);
 			intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
 			startActivity(intent);

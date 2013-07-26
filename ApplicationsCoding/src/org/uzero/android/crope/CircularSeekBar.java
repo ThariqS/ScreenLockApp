@@ -235,8 +235,8 @@ public class CircularSeekBar extends View {
 	protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
 		super.onMeasure(widthMeasureSpec, heightMeasureSpec);
 
-		width = getWidth(); // Get View Width
-		height = getHeight();// Get View Height
+		width = View.MeasureSpec.getSize(widthMeasureSpec);
+		height = View.MeasureSpec.getSize(heightMeasureSpec);
 
 		int size = (width > height) ? height : width; // Choose the smaller
 														// between width and

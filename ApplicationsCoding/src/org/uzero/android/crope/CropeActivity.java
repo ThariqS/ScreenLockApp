@@ -15,6 +15,13 @@ import java.util.Collections;
 
 import android.location.*;
 
+import com.google.android.gms.common.ConnectionResult;
+import com.google.android.gms.common.GooglePlayServicesUtil;
+import com.google.android.gms.common.GooglePlayServicesClient.ConnectionCallbacks;
+import com.google.android.gms.common.GooglePlayServicesClient.OnConnectionFailedListener;
+import com.google.android.gms.location.LocationClient;
+
+import android.content.IntentSender;
 
 import org.uzero.android.crope.activity.GeneralPreferenceActivity;
 import org.uzero.android.crope.CircularSeekBar;
@@ -75,10 +82,7 @@ import java.io.FileWriter;
 
 import android.util.Log;
 
-import com.parse.*;
-
-
-public class CropeActivity extends ScreenActivity {
+public class CropeActivity extends ScreenActivity implements ConnectionCallbacks, OnConnectionFailedListener{
 
 	//count options
 
@@ -86,12 +90,9 @@ public class CropeActivity extends ScreenActivity {
 	private Question curr_question;
 	private int correct_option = -1;
 	ArrayList questionList = null;
-
-
+	
 	public static final String COUNT_FILE = "CountFile";
 	public static final String COUNT_CHANCE = "Count_chance";
-
-
 
 	public static final String COUNT_DOY = "Count_doy";
 	public static final String COUNT_SLEEP = "Count_sleep";
@@ -99,9 +100,13 @@ public class CropeActivity extends ScreenActivity {
 	public static final String COUNT_MOOD = "Count_mood";
 	public static final String COUNT_LAST_CHECK = "Count_last_check";
 
+    private static final int CONNECTION_FAILURE_RESOLUTION_REQUEST = 9000;
 
 	private SharedPreferences settings;
 
+	private LocationClient mLocationClient;
+	
+	private Location mLocation;
 
 	private GestureDetector mGestureDetector;
 
@@ -117,12 +122,15 @@ public class CropeActivity extends ScreenActivity {
 		mPrefs = PreferenceManager.getDefaultSharedPreferences(this);
 
 		//Parse.initialize(this, "kbQ10HzOW8zRbgz6hUrJQAhDWECP2xSZF6yASWvc", "TH6MuFSz0ppAQ5ynPLOQVZsm5lY2HmzmoiQzUruR"); 
-		Parse.initialize(this, "8xMiCE2xIcGOsPMdBStJ6a1wlDNk07oeLOLfIVyO", "eSTSmWQggeoitRH3zGQaqqdAa6fmCYDw5s24foFv"); 
+		//Parse.initialize(this, "8xMiCE2xIcGOsPMdBStJ6a1wlDNk07oeLOLfIVyO", "eSTSmWQggeoitRH3zGQaqqdAa6fmCYDw5s24foFv");
+		
+		mLocationClient = new LocationClient(this, this, this);
 
 		// Acquire a reference to the system Location Manager
-		LocationManager locationManager = (LocationManager) this.getSystemService(Context.LOCATION_SERVICE);
+		//LocationManager locationManager = (LocationManager) this.getSystemService(Context.LOCATION_SERVICE);
 
 		// Define a listener that responds to location updates
+		/*
 		LocationListener locationListener = new LocationListener() {
 		    public void onLocationChanged(Location location) {
 		      // Called when a new location is found by the network location provider.
@@ -140,7 +148,8 @@ public class CropeActivity extends ScreenActivity {
 		// Register the listener with the Location Manager to receive location updates
 		locationManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, 0, 0, locationListener);
 		locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 0, 0, locationListener);
-
+		*/
+		
 		//disable keyguard
 		KeyguardManager keyguardManager = (KeyguardManager)getSystemService(Activity.KEYGUARD_SERVICE);
 		KeyguardLock lock = keyguardManager.newKeyguardLock(KEYGUARD_SERVICE);
@@ -153,12 +162,13 @@ public class CropeActivity extends ScreenActivity {
 	@Override
 	protected void onResume() {
 		super.onResume();
-
 	}
+	
 	@Override
 	protected void onStart() {
-		super.onResume();
-		initContentView();
+		super.onStart();
+        // Connect the client.
+        mLocationClient.connect();
 	}
 
 
@@ -166,7 +176,87 @@ public class CropeActivity extends ScreenActivity {
 	protected void onPause() {
 		super.onPause();
 	}
+	
+	protected void onStop() {
+        // Disconnecting the client invalidates it.
+        mLocationClient.disconnect();
+		super.onStop();
+	}
+	
+	@Override
+	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+		switch (requestCode) {
+			case CONNECTION_FAILURE_RESOLUTION_REQUEST:
+				switch (resultCode) {
+                case Activity.RESULT_OK :
+                	// If the result is OK try to connect again
+                	break;
+				}
+		}
+	}
+	
+	private boolean servicesConnected() {
+        // Check that Google Play services is available
+        int resultCode = GooglePlayServicesUtil.isGooglePlayServicesAvailable(this);
+        // If Google Play services is available
+        if (ConnectionResult.SUCCESS == resultCode) {
+            // In debug mode, log the status
+            Log.d("Location Updates",
+                    "Google Play services is available.");
+            // Continue
+            return true;
+        // Google Play services was not available for some reason
+        } else {
+            // Get the error code
+        	return false;
+        }
+    }
 
+	public void onConnected(Bundle dataBundle) {
+		Toast.makeText(this, "Connected", Toast.LENGTH_SHORT).show();
+		initContentView();
+	}
+	
+	public void onDisconnected() {
+        // Display the connection status
+        Toast.makeText(this, "Disconnected. Please re-connect.",
+                Toast.LENGTH_SHORT).show();
+	}
+	
+    /*
+     * Called by Location Services if the attempt to
+     * Location Services fails.
+     */
+    @Override
+    public void onConnectionFailed(ConnectionResult connectionResult) {
+        /*
+         * Google Play services can resolve some errors it detects.
+         * If the error has a resolution, try sending an Intent to
+         * start a Google Play services activity that can resolve
+         * error.
+         */
+        if (connectionResult.hasResolution()) {
+            try {
+                // Start an Activity that tries to resolve the error
+                connectionResult.startResolutionForResult(
+                        this,
+                        CONNECTION_FAILURE_RESOLUTION_REQUEST);
+                /*
+                 * Thrown if Google Play services canceled the original
+                 * PendingIntent
+                 */
+            } catch (IntentSender.SendIntentException e) {
+                // Log the error
+                e.printStackTrace();
+            }
+        } else {
+            /*
+             * If no resolution is available, display a dialog to the
+             * user with the error.
+             */
+        }
+    }
+	
 	@Override
 	public void finish() {
 		super.finish(mPreviewMode);
@@ -182,6 +272,11 @@ public class CropeActivity extends ScreenActivity {
 		crit.setAccuracy(Criteria.ACCURACY_FINE);
 		String provider = lm.getBestProvider(crit, true);
 		Location loc = lm.getLastKnownLocation(provider);
+		
+	    LocationDataSource db = new LocationDataSource(this);
+	    db.open();
+	    db.createLocation(loc.getLatitude(),loc.getLongitude());
+	    db.close();
 	}
 
 
@@ -211,10 +306,8 @@ public class CropeActivity extends ScreenActivity {
             }
         });
 
-
-		ParseUser user = ParseUser.getCurrentUser();
+		//ParseUser user = ParseUser.getCurrentUser();
 		String phone_id = getIMEI();
-
 
 		//refresh counts if it's a new day
 		Calendar calendar1 = Calendar.getInstance();
@@ -224,14 +317,18 @@ public class CropeActivity extends ScreenActivity {
     	settings = getSharedPreferences(COUNT_FILE, 0);
 
     	int old_doy = settings.getInt(COUNT_DOY,-1);
-
-
+    	
+    	mLocation = mLocationClient.getLastLocation();
+    	
+        LocationDataSource db = new LocationDataSource(this);
+        db.open();
+        db.createLocation(mLocation.getLatitude(),mLocation.getLongitude());
+        db.close();
 
     	if (old_doy != doy || questionList == null) {
     		SharedPreferences.Editor editor = settings.edit();
     		editor.commit();
     	}
-
 
     	if (questionList == null || questionList.size() == 0 ) {
  			questionList = new ArrayList();
@@ -247,7 +344,6 @@ public class CropeActivity extends ScreenActivity {
  			questionList.add(Question.EXCERCISE);
 
     	}
-
 
     	Collections.shuffle(questionList);
 
@@ -294,82 +390,80 @@ public class CropeActivity extends ScreenActivity {
 	}
 
 
-private static BufferedWriter out;
-private void createFileOnDevice() {
-    /*
-     * Function to initially create the log file and it also writes the time of creation to file.
-     */
-    try {
-	    Boolean append = true;
-	    File r = Environment.getExternalStorageDirectory();
-	    if(r.canWrite()){
-	         File  LogFile = new File(r, "Log.txt");
-	         FileWriter LogWriter = new FileWriter(LogFile, append);
-	         out = new BufferedWriter(LogWriter);
-	         Date date = new Date();
-	         out.write("Logged at" + String.valueOf(date.getHours() + ":" + date.getMinutes() + ":" + date.getSeconds() + "\n"));
-	    }
-    } catch (Exception e) {
-	}
-}
-
-public static void writeParseObject(ParseObject obj){
-	try {
-		String str;
-		Date date = new Date();
-		String date_str = String.valueOf(date.getTime());
-		String cls = obj.getClassName();
-		ParseGeoPoint pg;
-
-		if (cls.equals("NewDay")) {
-			double chance = obj.getDouble("chance");
-	    	str = "NewDay,"+String.valueOf(chance)+","+date_str;
-		} 
-		else if (cls.equals("Screen")) {
-	    	str = "Screen,"+date_str;
-		} 
-		else if (cls.equals("Unlock")) {
-	    	str = "Unlock,"+date_str;
-		} 
-		else if (cls.equals("Location")) {
-			pg = obj.getParseGeoPoint("val");
-			Boolean ping = obj.getBoolean("ping");
-			if (pg != null) {
-				if (ping)
-					cls = "LocationPing";
-				else
-					cls = "Location";
-
-		    	str = cls+","+String.valueOf(pg.getLatitude())+","+String.valueOf(pg.getLatitude())+","+date_str;
-	    	} else{
-	    		if (ping)
-					cls = "NullLocationPing";
-				else
-					cls = "NullLocation";
-	    		str = cls+","+date_str;
-	    	}
-		} 
-		else  {
-			int val = obj.getInt("val");
-			long time_difference = obj.getLong("timeDiff");
-
-	    	str = cls+","+val+","+date_str+","+time_difference;
-		} 
-
-
-		pg = obj.getParseGeoPoint("loc");
-
-		if (pg != null) {
-	    	str = "\nLocation,"+String.valueOf(pg.getLatitude())+","+String.valueOf(pg.getLatitude())+","+date_str;
+	private static BufferedWriter out;
+	private void createFileOnDevice() {
+	    /*
+	     * Function to initially create the log file and it also writes the time of creation to file.
+	     */
+	    try {
+		    Boolean append = true;
+		    File r = Environment.getExternalStorageDirectory();
+		    if(r.canWrite()){
+		         File  LogFile = new File(r, "Log.txt");
+		         FileWriter LogWriter = new FileWriter(LogFile, append);
+		         out = new BufferedWriter(LogWriter);
+		         Date date = new Date();
+		         out.write("Logged at" + String.valueOf(date.getHours() + ":" + date.getMinutes() + ":" + date.getSeconds() + "\n"));
+		    }
+	    } catch (Exception e) {
 		}
-
-		out.write(str+"\n");
-		out.flush();
-	} catch (Exception e) {
 	}
-}
-
-
-
+	/*
+	public static void writeParseObject(ParseObject obj){
+		try {
+			String str;
+			Date date = new Date();
+			String date_str = String.valueOf(date.getTime());
+			String cls = obj.getClassName();
+			//ParseGeoPoint pg;
+	
+			if (cls.equals("NewDay")) {
+				double chance = obj.getDouble("chance");
+		    	str = "NewDay,"+String.valueOf(chance)+","+date_str;
+			} 
+			else if (cls.equals("Screen")) {
+		    	str = "Screen,"+date_str;
+			} 
+			else if (cls.equals("Unlock")) {
+		    	str = "Unlock,"+date_str;
+			} 
+			else if (cls.equals("Location")) {
+				pg = obj.getParseGeoPoint("val");
+				Boolean ping = obj.getBoolean("ping");
+				if (pg != null) {
+					if (ping)
+						cls = "LocationPing";
+					else
+						cls = "Location";
+	
+			    	str = cls+","+String.valueOf(pg.getLatitude())+","+String.valueOf(pg.getLatitude())+","+date_str;
+		    	} else{
+		    		if (ping)
+						cls = "NullLocationPing";
+					else
+						cls = "NullLocation";
+		    		str = cls+","+date_str;
+		    	}
+			} 
+			else  {
+				int val = obj.getInt("val");
+				long time_difference = obj.getLong("timeDiff");
+	
+		    	str = cls+","+val+","+date_str+","+time_difference;
+			} 
+	
+	
+			pg = obj.getParseGeoPoint("loc");
+	
+			if (pg != null) {
+		    	str = "\nLocation,"+String.valueOf(pg.getLatitude())+","+String.valueOf(pg.getLatitude())+","+date_str;
+			}
+	
+			out.write(str+"\n");
+			out.flush();
+		} catch (Exception e) {
+		}
+	}
+*/
 
 }

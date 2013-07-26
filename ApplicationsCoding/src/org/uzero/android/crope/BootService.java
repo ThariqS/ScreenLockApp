@@ -2,20 +2,20 @@ package org.uzero.android.crope;
 
 import java.util.Timer;
 import java.util.TimerTask;
+import java.util.Date;
+import java.util.Calendar;
+import java.util.GregorianCalendar;
 
 import android.app.Service;
 import android.content.Intent;
 import android.os.IBinder;
 import android.util.Log;
 import android.location.*;
-import com.parse.*;
-import java.util.Date;
-import java.util.Calendar;
-import java.util.GregorianCalendar;
 import android.content.Context;
 import android.provider.Settings.Secure;
 import android.os.Bundle;
 
+//import com.parse.*;
 
 
 /**
@@ -56,22 +56,15 @@ public class BootService extends Service {
       crit.setAccuracy(Criteria.ACCURACY_FINE);
       String provider = lm.getBestProvider(crit, true);
       Location loc = lm.getLastKnownLocation(provider);
+      
+      LocationDataSource db = new LocationDataSource(getApplicationContext());
+      db.open();
+      db.createLocation(loc.getLatitude(),loc.getLongitude());
+      
+      String phone_id = getIMEI();
 
-        String phone_id = getIMEI();
-        ParseObject g_location = new ParseObject("Location");
-        if (loc != null) {
-          ParseGeoPoint point = new ParseGeoPoint(loc.getLatitude(),loc.getLongitude());
-          g_location.put("val", point);
-        } else {
-          g_location.put("val", "null");
-        }
-        g_location.put("occuredAt", time_of_action);
-        g_location.put("phone_id", phone_id);
-        g_location.put("ping", true);
-        //g_location.saveInBackground();
-        CropeActivity.writeParseObject(g_location);
-        Log.e("myApp", "saved object");
-
+      Log.e("myApp", "saved object");
+      db.close();
 
     }
    }
@@ -101,7 +94,7 @@ public class BootService extends Service {
    @Override
    public void onStart(final Intent intent, final int startId) {
     Log.e("myApp", "LAUNCHED TASK");
-    Parse.initialize(getApplicationContext(), "8xMiCE2xIcGOsPMdBStJ6a1wlDNk07oeLOLfIVyO", "eSTSmWQggeoitRH3zGQaqqdAa6fmCYDw5s24foFv"); 
+    //Parse.initialize(getApplicationContext(), "8xMiCE2xIcGOsPMdBStJ6a1wlDNk07oeLOLfIVyO", "eSTSmWQggeoitRH3zGQaqqdAa6fmCYDw5s24foFv"); 
 
     // Acquire a reference to the system Location Manager
     LocationManager locationManager = (LocationManager) getApplicationContext().getSystemService(Context.LOCATION_SERVICE);

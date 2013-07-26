@@ -22,7 +22,6 @@ public class GeneralPreferenceActivity extends ArrayPreferenceActivity {
 		prefs = (ListPreference)findPreference(getString(R.string.prefs_key_dock_show_mode));
 		prefs.setOnPreferenceChangeListener(buildOnPreferenceChangeListener(prefs));
 		prefs.setSummary(prefs.getEntry().toString());
-
 	}
 
 }

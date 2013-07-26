@@ -31,5 +31,6 @@
     <string name="prefs_key_data_backup">data_backup</string>
     <string name="prefs_key_data_restore">data_restore</string>
     <string name="prefs_key_preview_screen_lock">preview_screen_lock</string>
+    <string name="prefs_key_show_locations">show_locations</string>
 
 </resources>

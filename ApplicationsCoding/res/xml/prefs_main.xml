@@ -12,6 +12,12 @@
         android:title="@string/preview_screen_lock"
         android:summary="@string/preview_screen_lock_summary" >
     </PreferenceScreen>
+    
+    <PreferenceScreen
+        android:key="@string/prefs_key_show_locations"
+        android:title="Locations"
+        android:summary="Map of places you've been" >
+    </PreferenceScreen>
 
     <PreferenceCategory
             android:title="@string/build_information">
