@@ -299,6 +299,10 @@ public class CropeActivity extends ScreenActivity implements ConnectionCallbacks
             public void onProgressChange(CircularSeekBar view, int newProgress) {
                 double percent = ((double) newProgress) / view.getMaxProgress();
                 if (percent > 0.5) {
+            	    UnlockDataSource unlockDb = new UnlockDataSource(getApplicationContext());
+            	    unlockDb.open();
+            	    unlockDb.insertUnlockTime();
+            	    unlockDb.close();
                 	//Log.e("crope","testtinggg");
                 	ca.finish();
                 	//finish();

@@ -15,9 +15,6 @@ import android.content.Context;
 import android.provider.Settings.Secure;
 import android.os.Bundle;
 
-//import com.parse.*;
-
-
 /**
  * Simple demo service that schedules a timer task to write something to 
  * the log at regular intervals.

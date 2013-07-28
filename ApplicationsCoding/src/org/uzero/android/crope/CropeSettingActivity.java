@@ -92,6 +92,14 @@ public class CropeSettingActivity extends ActionBarPreferenceActivity {
 			intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
 			startActivity(intent);
 		}
+		
+		else if (getString(R.string.prefs_key_show_stats).equals(preference.getKey())) {
+			Intent intent = new Intent(Intent.ACTION_VIEW);
+			intent.setClass(this,StatsActivity.class);
+			intent.addCategory(Intent.CATEGORY_TEST);
+			intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
+			startActivity(intent);
+		}
 
 		return super.onPreferenceTreeClick(preferenceScreen, preference);
 	}

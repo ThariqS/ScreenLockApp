@@ -18,6 +18,12 @@
         android:title="Locations"
         android:summary="Map of places you've been" >
     </PreferenceScreen>
+    
+    <PreferenceScreen
+        android:key="@string/prefs_key_show_stats"
+        android:title="Usage Statistics"
+        android:summary="Your Personal Stats!" >
+    </PreferenceScreen>
 
     <PreferenceCategory
             android:title="@string/build_information">
