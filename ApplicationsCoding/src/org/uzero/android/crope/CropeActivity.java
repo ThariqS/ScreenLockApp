@@ -21,6 +21,8 @@ import com.google.android.gms.common.GooglePlayServicesClient.ConnectionCallback
 import com.google.android.gms.common.GooglePlayServicesClient.OnConnectionFailedListener;
 import com.google.android.gms.location.LocationClient;
 
+import android.util.Log;
+
 import android.content.IntentSender;
 
 import org.uzero.android.crope.activity.GeneralPreferenceActivity;
@@ -39,6 +41,8 @@ import android.appwidget.AppWidgetManager;
 import android.appwidget.AppWidgetProviderInfo;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.RelativeLayout;
+import android.widget.LinearLayout.LayoutParams;
 import android.widget.SlidingDrawer;
 import android.widget.SlidingDrawer.OnDrawerOpenListener;
 
@@ -120,43 +124,14 @@ public class CropeActivity extends ScreenActivity implements ConnectionCallbacks
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		mPrefs = PreferenceManager.getDefaultSharedPreferences(this);
-
-		//Parse.initialize(this, "kbQ10HzOW8zRbgz6hUrJQAhDWECP2xSZF6yASWvc", "TH6MuFSz0ppAQ5ynPLOQVZsm5lY2HmzmoiQzUruR"); 
-		//Parse.initialize(this, "8xMiCE2xIcGOsPMdBStJ6a1wlDNk07oeLOLfIVyO", "eSTSmWQggeoitRH3zGQaqqdAa6fmCYDw5s24foFv");
 		
 		mLocationClient = new LocationClient(this, this, this);
-
-		// Acquire a reference to the system Location Manager
-		//LocationManager locationManager = (LocationManager) this.getSystemService(Context.LOCATION_SERVICE);
-
-		// Define a listener that responds to location updates
-		/*
-		LocationListener locationListener = new LocationListener() {
-		    public void onLocationChanged(Location location) {
-		      // Called when a new location is found by the network location provider.
-		      //makeUseOfNewLocation(location);
-		    }
-
-		 	public void onStatusChanged(String provider, int status, Bundle extras) {}
-
-		    public void onProviderEnabled(String provider) {}
-
-		    public void onProviderDisabled(String provider) {}
-
-		  };
-
-		// Register the listener with the Location Manager to receive location updates
-		locationManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, 0, 0, locationListener);
-		locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 0, 0, locationListener);
-		*/
 		
 		//disable keyguard
 		KeyguardManager keyguardManager = (KeyguardManager)getSystemService(Activity.KEYGUARD_SERVICE);
 		KeyguardLock lock = keyguardManager.newKeyguardLock(KEYGUARD_SERVICE);
 		lock.disableKeyguard();
 		createFileOnDevice();
-
-
 	}
 
 	@Override
@@ -284,8 +259,11 @@ public class CropeActivity extends ScreenActivity implements ConnectionCallbacks
 	private void initContentView() {
 
 		time_of_start = new Date();
+		int numOfQuestions = mPrefs.getInt("questionNumber",0);
+		
+		int randQuestion = (int)( Math.random() * numOfQuestions);
 
-		initLayout();
+		initLayout(randQuestion);
 
 		CircularSeekBar circularSeekbar = (CircularSeekBar)findViewById(R.id.circle_bar_1);
 		circularSeekbar.setMaxProgress(100);
@@ -297,20 +275,30 @@ public class CropeActivity extends ScreenActivity implements ConnectionCallbacks
         circularSeekbar.setSeekBarChangeListener(new OnSeekChangeListener() {
             @Override
             public void onProgressChange(CircularSeekBar view, int newProgress) {
+        	    UnlockDataSource unlockDb = new UnlockDataSource(getApplicationContext());
+        	    AnswerDataSource answerDb = new AnswerDataSource(getApplicationContext());
+        	    unlockDb.open();
+        	    answerDb.open();
+        	    TextView question = (TextView) findViewById(R.id.questionText);
                 double percent = ((double) newProgress) / view.getMaxProgress();
-                if (percent > 0.5) {
-            	    UnlockDataSource unlockDb = new UnlockDataSource(getApplicationContext());
-            	    unlockDb.open();
-            	    unlockDb.insertUnlockTime();
-            	    unlockDb.close();
-                	//Log.e("crope","testtinggg");
-                	ca.finish();
-                	//finish();
+                Log.d("Percent: ","" + percent);
+                if (percent < 0.333) {
+                	TextView answer = (TextView) findViewById(R.id.answer1);
+                	answerDb.createAnswer(question.getText().toString(), answer.getText().toString());
+                } else if (percent < 0.666) {
+                	TextView answer = (TextView) findViewById(R.id.answer2);
+                	answerDb.createAnswer(question.getText().toString(), answer.getText().toString());
+                } else {
+                	TextView answer = (TextView) findViewById(R.id.answer3);
+                	answerDb.createAnswer(question.getText().toString(), answer.getText().toString());
                 }
+        	    unlockDb.insertUnlockTime();
+        	    unlockDb.close();
+        	    answerDb.close();
+            	ca.finish();
             }
         });
 
-		//ParseUser user = ParseUser.getCurrentUser();
 		String phone_id = getIMEI();
 
 		//refresh counts if it's a new day
@@ -377,22 +365,33 @@ public class CropeActivity extends ScreenActivity implements ConnectionCallbacks
 		finish();
 	}
 
-	private void initLayout() {
-
+	private void initLayout(int questionNumber) {
 		String showMode = mPrefs.getString(
 				getString(R.string.prefs_key_dock_show_mode),
 				getString(R.string.dock_show_mode_default_value));
-
+		
 		setContentView(R.layout.crope_lock);
-
+		
+		RelativeLayout frameLayout = (RelativeLayout) findViewById(R.id.crope_lock);
+		RelativeLayout.LayoutParams params;
+		
+		TextView question = (TextView) findViewById(R.id.questionText);
+		question.setText(mPrefs.getString("q_" + questionNumber + "_text","Question Not Found"));
+		
+		int answerCount = mPrefs.getInt("q_" + questionNumber + "_answerCount",0);
+		
+		TextView answer = (TextView) findViewById(R.id.answer1);
+		answer.setText(mPrefs.getString("q_" + questionNumber + "_a_0","Answer Not Found"));
+		TextView answer2 = (TextView) findViewById(R.id.answer2);
+		answer2.setText(mPrefs.getString("q_" + questionNumber + "_a_1","Answer Not Found"));
+		TextView answer3 = (TextView) findViewById(R.id.answer3);
+		answer3.setText(mPrefs.getString("q_" + questionNumber + "_a_2","Answer Not Found"));
+		
 	}
 
-	String getIMEI()
-	{
-
+	String getIMEI() {
 		return Secure.getString(getApplicationContext().getContentResolver(),Secure.ANDROID_ID); 
 	}
-
 
 	private static BufferedWriter out;
 	private void createFileOnDevice() {
@@ -412,62 +411,4 @@ public class CropeActivity extends ScreenActivity implements ConnectionCallbacks
 	    } catch (Exception e) {
 		}
 	}
-	/*
-	public static void writeParseObject(ParseObject obj){
-		try {
-			String str;
-			Date date = new Date();
-			String date_str = String.valueOf(date.getTime());
-			String cls = obj.getClassName();
-			//ParseGeoPoint pg;
-	
-			if (cls.equals("NewDay")) {
-				double chance = obj.getDouble("chance");
-		    	str = "NewDay,"+String.valueOf(chance)+","+date_str;
-			} 
-			else if (cls.equals("Screen")) {
-		    	str = "Screen,"+date_str;
-			} 
-			else if (cls.equals("Unlock")) {
-		    	str = "Unlock,"+date_str;
-			} 
-			else if (cls.equals("Location")) {
-				pg = obj.getParseGeoPoint("val");
-				Boolean ping = obj.getBoolean("ping");
-				if (pg != null) {
-					if (ping)
-						cls = "LocationPing";
-					else
-						cls = "Location";
-	
-			    	str = cls+","+String.valueOf(pg.getLatitude())+","+String.valueOf(pg.getLatitude())+","+date_str;
-		    	} else{
-		    		if (ping)
-						cls = "NullLocationPing";
-					else
-						cls = "NullLocation";
-		    		str = cls+","+date_str;
-		    	}
-			} 
-			else  {
-				int val = obj.getInt("val");
-				long time_difference = obj.getLong("timeDiff");
-	
-		    	str = cls+","+val+","+date_str+","+time_difference;
-			} 
-	
-	
-			pg = obj.getParseGeoPoint("loc");
-	
-			if (pg != null) {
-		    	str = "\nLocation,"+String.valueOf(pg.getLatitude())+","+String.valueOf(pg.getLatitude())+","+date_str;
-			}
-	
-			out.write(str+"\n");
-			out.flush();
-		} catch (Exception e) {
-		}
-	}
-*/
-
 }

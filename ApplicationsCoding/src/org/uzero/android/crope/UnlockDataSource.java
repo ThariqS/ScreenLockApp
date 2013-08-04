@@ -2,6 +2,7 @@ package org.uzero.android.crope;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Calendar;
 import java.sql.Timestamp;
 
 import android.content.ContentValues;
@@ -32,8 +33,8 @@ public class UnlockDataSource {
 	  
 	  public long insertUnlockTime() {
 		  ContentValues values = new ContentValues();
-		  int time = (int) (System.currentTimeMillis());
-		  Timestamp ts = new Timestamp(time);
+		  long currentTime = Calendar.getInstance().getTimeInMillis();
+		  Timestamp ts = new Timestamp(currentTime);
 		  values.put(UnlockSQLiteHelper.COLUMN_TS, ts.toString());
 		  return database.insert(UnlockSQLiteHelper.TABLE_UNLOCKS, null, values);
 	  }

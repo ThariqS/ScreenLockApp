@@ -4,6 +4,7 @@
     android:layout_height="fill_parent" >
 
     <RelativeLayout
+        android:id="@+id/crope_lock"
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
         android:orientation="vertical" 
@@ -12,16 +13,52 @@
         <!-- Widget Layout -->
 
 	    <View
+	        android:id="@+id/crope_lock_text"
 	        android:layout_width="fill_parent"
 	        android:layout_height="0dp"
 	        android:layout_weight="1" />
 
-	   	<org.uzero.android.crope.CircularSeekBar 
-        android:id="@+id/circle_bar_1"
-        android:layout_height="500dp"
-        android:layout_width="500dp">
-        </org.uzero.android.crope.CircularSeekBar>
+	   	<TextView
+	   	    android:id="@+id/questionText"
+	   	    android:layout_width="wrap_content"
+	   	    android:layout_height="wrap_content"
+	   	    android:layout_alignParentTop="true"
+	   	    android:layout_centerHorizontal="true"
+	   	    android:layout_marginTop="192dp"
+	   	    android:text="TextView" />
 
+	   	<org.uzero.android.crope.CircularSeekBar
+	   	    android:id="@+id/circle_bar_1"
+	   	    android:layout_width="500dp"
+	   	    android:layout_height="500dp" />
+
+	   	<TextView
+	   	    android:id="@+id/answer1"
+	   	    android:layout_width="wrap_content"
+	   	    android:layout_height="wrap_content"
+	   	    android:layout_alignParentLeft="true"
+	   	    android:layout_below="@+id/questionText"
+	   	    android:layout_marginTop="131dp"
+	   	    android:text="TextView" />
+
+	   	<TextView
+	   	    android:id="@+id/answer2"
+	   	    android:layout_width="wrap_content"
+	   	    android:layout_height="wrap_content"
+	   	    android:layout_alignBaseline="@+id/answer1"
+	   	    android:layout_alignBottom="@+id/answer1"
+	   	    android:layout_alignRight="@+id/questionText"
+	   	    android:layout_marginRight="34dp"
+	   	    android:text="TextView" />
+
+	   	<TextView
+	   	    android:id="@+id/answer3"
+	   	    android:layout_width="wrap_content"
+	   	    android:layout_height="wrap_content"
+	   	    android:layout_alignBaseline="@+id/answer2"
+	   	    android:layout_alignBottom="@+id/answer2"
+	   	    android:layout_toRightOf="@+id/answer2"
+	   	    android:text="TextView" />
 
     </RelativeLayout>
 

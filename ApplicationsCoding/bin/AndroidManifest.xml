@@ -26,7 +26,8 @@
     <application
         android:icon="@drawable/ic_launcher"
         android:label="@string/full_name"
-        android:theme="@style/AppTheme" >
+        android:theme="@style/AppTheme"
+        android:allowBackup="true" >
         <meta-data android:name="com.google.android.maps.v2.API_KEY"
             android:value="AIzaSyCVEi3RBxkqCB4eD36tb4s8PwZWAW572pU"/>
         <activity

@@ -37,7 +37,7 @@ public class AnswerDataSource {
 	  
 	  public List<String> getAllAnswers(String question) {
 		  List<String> answers = new ArrayList<String>();
-		  Cursor cursor = database.query(LocationSQLiteHelper.TABLE_LOCATIONS,
+		  Cursor cursor = database.query(AnswerSQLiteHelper.TABLE_ANSWERS,
 			            allColumns, null, null, null, null, null);
 		  cursor.moveToFirst();
 		  while (!cursor.isAfterLast()) {

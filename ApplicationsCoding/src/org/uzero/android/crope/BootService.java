@@ -23,14 +23,13 @@ import android.os.Bundle;
  */
 public class BootService extends Service {
    /**
-    * Delay until first exeution of the Log task.
+    * Delay until first execution of the Log task.
     */
    private final long mDelay = 0;
    /**
     * Period of the Log task.
     */
    private final long mPeriod = 1000*60*20;
-   //private final long mPeriod = 5000;
    /**
     * Log tag for this service.
     */ 
@@ -69,7 +68,7 @@ public class BootService extends Service {
    
    @Override
    public IBinder onBind(final Intent intent) {
-    return null;
+	   return null;
    }
    
    @Override
@@ -82,16 +81,13 @@ public class BootService extends Service {
 
    }
 
-  String getIMEI()
-  {
-    return Secure.getString(getApplicationContext().getContentResolver(),Secure.ANDROID_ID); 
-  }
-   
-
+   String getIMEI() {
+	   return Secure.getString(getApplicationContext().getContentResolver(),Secure.ANDROID_ID); 
+   }
+  
    @Override
    public void onStart(final Intent intent, final int startId) {
     Log.e("myApp", "LAUNCHED TASK");
-    //Parse.initialize(getApplicationContext(), "8xMiCE2xIcGOsPMdBStJ6a1wlDNk07oeLOLfIVyO", "eSTSmWQggeoitRH3zGQaqqdAa6fmCYDw5s24foFv"); 
 
     // Acquire a reference to the system Location Manager
     LocationManager locationManager = (LocationManager) getApplicationContext().getSystemService(Context.LOCATION_SERVICE);

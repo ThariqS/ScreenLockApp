@@ -5,7 +5,7 @@
     android:orientation="vertical" >
 
     <TextView
-        android:id="@+id/textView1"
+        android:id="@+id/questionText"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Daily Unlocks"
@@ -14,6 +14,19 @@
 
     <com.echo.holographlibrary.BarGraph
         android:id="@+id/graph"
+        android:layout_width="match_parent"
+        android:layout_height="200dp" />
+    
+    <TextView
+        android:id="@+id/questionText"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Have you exercised today?"
+        android:gravity="center"
+        android:textAppearance="?android:attr/textAppearanceLarge" />
+   
+   <com.echo.holographlibrary.PieGraph
+        android:id="@+id/pieChart"
         android:layout_width="match_parent"
         android:layout_height="200dp" />
 

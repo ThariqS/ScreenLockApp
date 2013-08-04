@@ -261,7 +261,7 @@ public class CircularSeekBar extends View {
 
 		rect.set(left, top, right, bottom); // assign size to rect
 
-		increments = (width-100)/6;
+		increments = (width-100)/3;
 
 		this.maxProgress = width-50;
 

@@ -246,27 +246,33 @@ containing a value of this type.
         public static final int actionbar_compat_item_refresh=0x7f090008;
         public static final int actionbar_compat_item_refresh_progress=0x7f090007;
         public static final int actionbar_compat_title=0x7f090006;
-        public static final int circle_bar_1=0x7f090010;
+        public static final int answer1=0x7f090014;
+        public static final int answer2=0x7f090015;
+        public static final int answer3=0x7f090016;
+        public static final int circle_bar_1=0x7f090013;
         public static final int content=0x7f09000a;
-        public static final int crope_lock_background=0x7f090013;
-        public static final int crope_lock_veil=0x7f090014;
-        public static final int crope_lock_widget_layout=0x7f090011;
-        public static final int graph=0x7f090019;
-        public static final int handle=0x7f090012;
-        public static final int help_flipper=0x7f090015;
+        public static final int crope_lock=0x7f090010;
+        public static final int crope_lock_background=0x7f090019;
+        public static final int crope_lock_text=0x7f090011;
+        public static final int crope_lock_veil=0x7f09001a;
+        public static final int crope_lock_widget_layout=0x7f090017;
+        public static final int graph=0x7f09001e;
+        public static final int handle=0x7f090018;
+        public static final int help_flipper=0x7f09001b;
         public static final int hybrid=0x7f090004;
-        public static final int map=0x7f090017;
+        public static final int map=0x7f09001d;
         public static final int menu_refresh=0x7f090009;
         public static final int none=0x7f090000;
         public static final int normal=0x7f090001;
+        public static final int pieChart=0x7f09001f;
+        public static final int questionText=0x7f090012;
         public static final int satellite=0x7f090002;
         public static final int terrain=0x7f090003;
-        public static final int textView1=0x7f090018;
-        public static final int theme_detail_description=0x7f09001c;
-        public static final int theme_detail_icon=0x7f09001a;
-        public static final int theme_detail_label=0x7f09001b;
-        public static final int theme_detail_preview=0x7f09001d;
-        public static final int top_text=0x7f090016;
+        public static final int theme_detail_description=0x7f090022;
+        public static final int theme_detail_icon=0x7f090020;
+        public static final int theme_detail_label=0x7f090021;
+        public static final int theme_detail_preview=0x7f090023;
+        public static final int top_text=0x7f09001c;
         public static final int unlock_btn_1=0x7f09000b;
         public static final int unlock_btn_2=0x7f09000c;
         public static final int unlock_btn_3=0x7f09000d;
@@ -619,7 +625,7 @@ containing a value of this type.
 
           <p>Must be a reference to another resource, in the form "<code>@[+][<i>package</i>:]<i>type</i>:<i>name</i></code>"
 or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>".
-          @attr name android:actionbarCompatItemHomeStyle
+          @attr name org.uzero.android.crope:actionbarCompatItemHomeStyle
         */
         public static final int AppTheme_actionbarCompatItemHomeStyle = 2;
         /**
@@ -629,7 +635,7 @@ or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>na
 
           <p>Must be a reference to another resource, in the form "<code>@[+][<i>package</i>:]<i>type</i>:<i>name</i></code>"
 or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>".
-          @attr name android:actionbarCompatItemStyle
+          @attr name org.uzero.android.crope:actionbarCompatItemStyle
         */
         public static final int AppTheme_actionbarCompatItemStyle = 1;
         /**
@@ -639,7 +645,7 @@ or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>na
 
           <p>Must be a reference to another resource, in the form "<code>@[+][<i>package</i>:]<i>type</i>:<i>name</i></code>"
 or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>".
-          @attr name android:actionbarCompatProgressIndicatorStyle
+          @attr name org.uzero.android.crope:actionbarCompatProgressIndicatorStyle
         */
         public static final int AppTheme_actionbarCompatProgressIndicatorStyle = 3;
         /**
@@ -649,7 +655,7 @@ or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>na
 
           <p>Must be a reference to another resource, in the form "<code>@[+][<i>package</i>:]<i>type</i>:<i>name</i></code>"
 or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>".
-          @attr name android:actionbarCompatTitleStyle
+          @attr name org.uzero.android.crope:actionbarCompatTitleStyle
         */
         public static final int AppTheme_actionbarCompatTitleStyle = 0;
         /** Attributes that can be used with a BezelImageView.
@@ -674,7 +680,7 @@ or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>na
 
           <p>Must be a reference to another resource, in the form "<code>@[+][<i>package</i>:]<i>type</i>:<i>name</i></code>"
 or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>".
-          @attr name android:borderDrawable
+          @attr name org.uzero.android.crope:borderDrawable
         */
         public static final int BezelImageView_borderDrawable = 1;
         /**
@@ -684,7 +690,7 @@ or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>na
 
           <p>Must be a reference to another resource, in the form "<code>@[+][<i>package</i>:]<i>type</i>:<i>name</i></code>"
 or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>".
-          @attr name android:maskDrawable
+          @attr name org.uzero.android.crope:maskDrawable
         */
         public static final int BezelImageView_maskDrawable = 0;
         /** Attributes that can be used with a MapAttrs.
@@ -740,7 +746,7 @@ or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>na
 theme attribute (in the form
 "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
 containing a value of this type.
-          @attr name android:cameraBearing
+          @attr name org.uzero.android.crope:cameraBearing
         */
         public static final int MapAttrs_cameraBearing = 1;
         /**
@@ -754,7 +760,7 @@ containing a value of this type.
 theme attribute (in the form
 "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
 containing a value of this type.
-          @attr name android:cameraTargetLat
+          @attr name org.uzero.android.crope:cameraTargetLat
         */
         public static final int MapAttrs_cameraTargetLat = 2;
         /**
@@ -768,7 +774,7 @@ containing a value of this type.
 theme attribute (in the form
 "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
 containing a value of this type.
-          @attr name android:cameraTargetLng
+          @attr name org.uzero.android.crope:cameraTargetLng
         */
         public static final int MapAttrs_cameraTargetLng = 3;
         /**
@@ -782,7 +788,7 @@ containing a value of this type.
 theme attribute (in the form
 "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
 containing a value of this type.
-          @attr name android:cameraTilt
+          @attr name org.uzero.android.crope:cameraTilt
         */
         public static final int MapAttrs_cameraTilt = 4;
         /**
@@ -796,7 +802,7 @@ containing a value of this type.
 theme attribute (in the form
 "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
 containing a value of this type.
-          @attr name android:cameraZoom
+          @attr name org.uzero.android.crope:cameraZoom
         */
         public static final int MapAttrs_cameraZoom = 5;
         /**
@@ -816,7 +822,7 @@ containing a value of this type.
 <tr><td><code>terrain</code></td><td>3</td><td></td></tr>
 <tr><td><code>hybrid</code></td><td>4</td><td></td></tr>
 </table>
-          @attr name android:mapType
+          @attr name org.uzero.android.crope:mapType
         */
         public static final int MapAttrs_mapType = 0;
         /**
@@ -830,7 +836,7 @@ containing a value of this type.
 theme attribute (in the form
 "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
 containing a value of this type.
-          @attr name android:uiCompass
+          @attr name org.uzero.android.crope:uiCompass
         */
         public static final int MapAttrs_uiCompass = 6;
         /**
@@ -844,7 +850,7 @@ containing a value of this type.
 theme attribute (in the form
 "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
 containing a value of this type.
-          @attr name android:uiRotateGestures
+          @attr name org.uzero.android.crope:uiRotateGestures
         */
         public static final int MapAttrs_uiRotateGestures = 7;
         /**
@@ -858,7 +864,7 @@ containing a value of this type.
 theme attribute (in the form
 "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
 containing a value of this type.
-          @attr name android:uiScrollGestures
+          @attr name org.uzero.android.crope:uiScrollGestures
         */
         public static final int MapAttrs_uiScrollGestures = 8;
         /**
@@ -872,7 +878,7 @@ containing a value of this type.
 theme attribute (in the form
 "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
 containing a value of this type.
-          @attr name android:uiTiltGestures
+          @attr name org.uzero.android.crope:uiTiltGestures
         */
         public static final int MapAttrs_uiTiltGestures = 9;
         /**
@@ -886,7 +892,7 @@ containing a value of this type.
 theme attribute (in the form
 "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
 containing a value of this type.
-          @attr name android:uiZoomControls
+          @attr name org.uzero.android.crope:uiZoomControls
         */
         public static final int MapAttrs_uiZoomControls = 10;
         /**
@@ -900,7 +906,7 @@ containing a value of this type.
 theme attribute (in the form
 "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
 containing a value of this type.
-          @attr name android:uiZoomGestures
+          @attr name org.uzero.android.crope:uiZoomGestures
         */
         public static final int MapAttrs_uiZoomGestures = 11;
         /**
@@ -914,7 +920,7 @@ containing a value of this type.
 theme attribute (in the form
 "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
 containing a value of this type.
-          @attr name android:useViewLifecycle
+          @attr name org.uzero.android.crope:useViewLifecycle
         */
         public static final int MapAttrs_useViewLifecycle = 12;
         /**
@@ -928,7 +934,7 @@ containing a value of this type.
 theme attribute (in the form
 "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
 containing a value of this type.
-          @attr name android:zOrderOnTop
+          @attr name org.uzero.android.crope:zOrderOnTop
         */
         public static final int MapAttrs_zOrderOnTop = 13;
     };

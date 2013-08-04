@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<questions>
+    <question>
+        <question_type>EXCERCISE</question_type>
+        <text>Have you exercised today?</text>
+        <answer_type>multiple</answer_type>
+        <answers>
+            <answer>Yes</answer>
+            <answer>No</answer>
+            <answer>Yes, but later</answer>
+        </answers>
+    </question>
+    <question>
+        <question_type>FOOD</question_type>
+        <text>Have you eaten in the past hour?</text>
+        <answer_type>multiple</answer_type>
+        <answers>
+            <answer>Yes</answer>
+            <answer>No</answer>
+            <answer>Eating right now</answer>
+        </answers>
+    </question>
+    <question>
+        <question_type>MOOD</question_type>
+        <text>Have are you feeling right now?</text>
+        <answer_type>multiple</answer_type>
+        <answers>
+            <answer>Happy</answer>
+            <answer>Sad</answer>
+            <answer>Tired</answer>
+            <answer>Angry</answer>
+            <answer>Neutral</answer>
+        </answers>
+    </question>
+    <question>
+        <question_type>SOCIAL</question_type>
+        <text>How many people are you with right now?</text>
+        <answer_type>multiple</answer_type>
+        <answers>
+            <answer>Alone</answer>
+            <answer>2-3</answer>
+            <answer>4-6</answer>
+            <answer>Work</answer>
+        </answers>
+    </question>
+    <question>
+        <question_type>SOCIAL</question_type>
+        <text>What are doing tonight?</text>
+        <answer_type>multiple</answer_type>
+        <answers>
+            <answer>Errands</answer>
+            <answer>Shopping</answer>
+            <answer>Gym</answer>
+            <answer>Gaming</answer>
+        </answers>
+    </question>
+</questions>
