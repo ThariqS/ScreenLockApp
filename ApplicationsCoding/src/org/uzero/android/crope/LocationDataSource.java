@@ -5,6 +5,7 @@ import com.google.android.gms.maps.model.LatLng;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.sql.Timestamp;
 
 import android.content.Context;
 import android.content.ContentValues;
@@ -54,6 +55,23 @@ public class LocationDataSource {
 		  List<LatLng> locations = new ArrayList<LatLng>();
 		  Cursor cursor = database.query(LocationSQLiteHelper.TABLE_LOCATIONS,
 			            allColumns, null, null, null, null, null);
+		  cursor.moveToFirst();
+		  while (!cursor.isAfterLast()) {
+			  LatLng loc = new LatLng(cursor.getDouble(1),cursor.getDouble(2));
+			  locations.add(loc);
+			  cursor.moveToNext();
+		  }
+		  // Make sure to close the cursor
+		  cursor.close();
+		  return locations;
+	  }
+	  
+	  public List<LatLng> getAllLocations(long startTime, long endTime) {
+		  List<LatLng> locations = new ArrayList<LatLng>();
+		  Timestamp ts1 = new Timestamp(startTime);
+		  Timestamp ts2 = new Timestamp(endTime);
+		  Cursor cursor = database.query(LocationSQLiteHelper.TABLE_LOCATIONS,
+			            allColumns, "ts BETWEEN '" + ts1.toString() + "' AND '" + ts2.toString() + "'", null, null, null, null);
 		  cursor.moveToFirst();
 		  while (!cursor.isAfterLast()) {
 			  LatLng loc = new LatLng(cursor.getDouble(1),cursor.getDouble(2));

@@ -1,6 +1,7 @@
 package org.uzero.android.crope;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 import java.util.Random;
 
@@ -17,6 +18,10 @@ import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 
 import android.annotation.SuppressLint;
+import android.app.Dialog;
+import android.support.v4.app.DialogFragment;
+import android.app.DatePickerDialog;
+
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
@@ -27,12 +32,60 @@ import android.view.ViewTreeObserver.OnGlobalLayoutListener;
 import android.view.animation.BounceInterpolator;
 import android.view.animation.Interpolator;
 import android.widget.TextView;
+import android.widget.DatePicker;
 
 public class LocationMapActivity extends FragmentActivity 
-		implements OnMarkerClickListener, OnMarkerDragListener{
+		implements OnMarkerClickListener, OnMarkerDragListener, DatePickerDialog.OnDateSetListener{
+	
+	private long startTime = Calendar.getInstance().getTimeInMillis() - 8640000;
+	private long endTime = Calendar.getInstance().getTimeInMillis();
+	
+	public void setStartDate(int year, int month, int day) {
+		Calendar cal = Calendar.getInstance();
+		cal.set(Calendar.DAY_OF_MONTH, day);
+		cal.set(Calendar.MONTH, month);
+		cal.set(Calendar.YEAR, year);
+		startTime = cal.getTimeInMillis();
+		updateMap();
+	}
+	
+	public void setEndDate(int year, int month, int day) {
+		Calendar cal = Calendar.getInstance();
+		cal.set(Calendar.DAY_OF_MONTH, day);
+		cal.set(Calendar.MONTH, month);
+		cal.set(Calendar.YEAR, year);
+		endTime = cal.getTimeInMillis();
+	}
+	
+	public void onDateSet(DatePicker view, int year, int month, int day) {
+		// Do something with the date chosen by the user
+		setStartDate( year, month, day);
+	}
+	
+	public static class DatePickerFragment extends DialogFragment {
+
+		@Override
+		public Dialog onCreateDialog(Bundle savedInstanceState) {
+			// Use the current date as the default date in the picker
+			final Calendar c = Calendar.getInstance();
+			int year = c.get(Calendar.YEAR);
+			int month = c.get(Calendar.MONTH);
+			int day = c.get(Calendar.DAY_OF_MONTH);
+		
+			// Create a new instance of DatePickerDialog and return it
+			return new DatePickerDialog(getActivity(), (LocationMapActivity)getActivity(), year, month, day);
+		}
+		
+	}
+	
+	public void showDatePickerDialog(View v) {
+	    DialogFragment newFragment = new DatePickerFragment();
+	    newFragment.show(getSupportFragmentManager(), "datePicker");
+	}
 	
 	private GoogleMap mMap;
 	private List<LatLng> locations;
+	private List<Marker> markers = new ArrayList<Marker>();
 	
 	private LocationDataSource db;
 	
@@ -83,23 +136,32 @@ public class LocationMapActivity extends FragmentActivity
                 @SuppressLint("NewApi") // We check which build version we are using.
                 @Override
                 public void onGlobalLayout() {
-                    //LatLngBounds bounds = new LatLngBounds.Builder().build();
+                	LatLngBounds.Builder builder = new LatLngBounds.Builder();
+                    for (LatLng l : locations) {
+                    	builder.include(l);
+                    }
+                    LatLngBounds bounds = builder.build();
                     if (Build.VERSION.SDK_INT < Build.VERSION_CODES.JELLY_BEAN) {
                       mapView.getViewTreeObserver().removeGlobalOnLayoutListener(this);
                     } else {
                       mapView.getViewTreeObserver().removeOnGlobalLayoutListener(this);
                     }
-                    //mMap.moveCamera(CameraUpdateFactory.newLatLngBounds(bounds, 50));
+                    mMap.moveCamera(CameraUpdateFactory.newLatLngBounds(bounds, 50));
                 }
             });
         }
+    }
+    
+    private void updateMap() {
+    	mMap.clear();
+    	addMarkersToMap();
     }
 
     private void addMarkersToMap() {
         // Creates a marker rainbow demonstrating how to create default marker icons of different
         // hues (colors).
     	db.open();
-    	List<LatLng> locations = db.getAllLocations();
+    	locations = db.getAllLocations(startTime,endTime);
         int numOfLocations = locations.size();
         for (int i = 0; i < numOfLocations; i++) {
             mMap.addMarker(new MarkerOptions()
