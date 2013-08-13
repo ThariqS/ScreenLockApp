@@ -1,65 +1,23 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="fill_parent"
-    android:layout_height="fill_parent" >
-
-    <RelativeLayout
-        android:id="@+id/crope_lock"
-        android:layout_width="fill_parent"
-        android:layout_height="fill_parent"
-        android:orientation="vertical" 
-        >
+<RelativeLayout android:layout_width="fill_parent"
+    android:layout_height="fill_parent" xmlns:android="http://schemas.android.com/apk/res/android">
 
         <!-- Widget Layout -->
 
-	    <View
-	        android:id="@+id/crope_lock_text"
-	        android:layout_width="fill_parent"
-	        android:layout_height="0dp"
-	        android:layout_weight="1" />
+        <org.uzero.android.crope.LockView
+            android:id="@+id/lockView1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_centerVertical="true" />
 
-	   	<TextView
-	   	    android:id="@+id/questionText"
-	   	    android:layout_width="wrap_content"
-	   	    android:layout_height="wrap_content"
-	   	    android:layout_alignParentTop="true"
-	   	    android:layout_centerHorizontal="true"
-	   	    android:layout_marginTop="192dp"
-	   	    android:text="TextView" />
+        <DigitalClock
+            android:id="@+id/digitalClock1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="50dp"
+            android:textSize = "50sp"/>
 
-	   	<org.uzero.android.crope.CircularSeekBar
-	   	    android:id="@+id/circle_bar_1"
-	   	    android:layout_width="500dp"
-	   	    android:layout_height="500dp" />
-
-	   	<TextView
-	   	    android:id="@+id/answer1"
-	   	    android:layout_width="wrap_content"
-	   	    android:layout_height="wrap_content"
-	   	    android:layout_alignParentLeft="true"
-	   	    android:layout_below="@+id/questionText"
-	   	    android:layout_marginTop="131dp"
-	   	    android:text="TextView" />
-
-	   	<TextView
-	   	    android:id="@+id/answer2"
-	   	    android:layout_width="wrap_content"
-	   	    android:layout_height="wrap_content"
-	   	    android:layout_alignBaseline="@+id/answer1"
-	   	    android:layout_alignBottom="@+id/answer1"
-	   	    android:layout_alignRight="@+id/questionText"
-	   	    android:layout_marginRight="34dp"
-	   	    android:text="TextView" />
-
-	   	<TextView
-	   	    android:id="@+id/answer3"
-	   	    android:layout_width="wrap_content"
-	   	    android:layout_height="wrap_content"
-	   	    android:layout_alignBaseline="@+id/answer2"
-	   	    android:layout_alignBottom="@+id/answer2"
-	   	    android:layout_toRightOf="@+id/answer2"
-	   	    android:text="TextView" />
-
-    </RelativeLayout>
-
-</FrameLayout>
+</RelativeLayout>

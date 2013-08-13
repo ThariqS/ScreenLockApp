@@ -12,6 +12,7 @@
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
     <uses-permission android:name="android.permission.DISABLE_KEYGUARD"/>
+    <uses-permission android:name="android.permission.READ_PHONE_STATE" />
     <uses-permission android:name="com.google.android.providers.gsf.permission.READ_GSERVICES"/>
     <permission
     android:name="com.example.mapdemo.permission.MAPS_RECEIVE"
@@ -37,7 +38,7 @@
             android:configChanges="keyboardHidden|orientation"
             android:excludeFromRecents="true"
             android:taskAffinity="org.uzero.android.crope.screen"
-            android:theme="@android:style/Theme.Wallpaper.NoTitleBar" >
+            android:theme="@android:style/Theme.Wallpaper.NoTitleBar.Fullscreen" >
             <intent-filter>
                 <action android:name="android.intent.action.VIEW" />
                 <category android:name="android.intent.category.LAUNCHER" />
@@ -54,7 +55,7 @@
             android:configChanges="keyboardHidden|orientation"
             android:excludeFromRecents="true"
             android:taskAffinity="org.uzero.android.crope.screen"
-            android:theme="@android:style/Theme.Wallpaper.NoTitleBar" >
+            android:theme="@android:style/Theme.NoTitleBar.Fullscreen" >
             <intent-filter>
                 <action android:name="android.intent.action.VIEW" />
                 <category android:name="android.intent.category.LAUNCHER" />

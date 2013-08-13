@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 import java.util.Date;
+import java.util.HashMap;
 import java.lang.Integer;
 
 import java.util.Calendar;
@@ -28,8 +29,12 @@ import android.content.IntentSender;
 import org.uzero.android.crope.activity.GeneralPreferenceActivity;
 import org.uzero.android.crope.CircularSeekBar;
 import org.uzero.android.crope.CircularSeekBar.OnSeekChangeListener;
+import org.uzero.android.crope.LockView.OnAnswerListener;
 
 import org.uzero.android.lock.ScreenActivity;
+import org.xmlpull.v1.XmlPullParser;
+import org.xmlpull.v1.XmlPullParserException;
+import org.xmlpull.v1.XmlPullParserFactory;
 
 import android.app.Activity;
 import android.app.KeyguardManager.KeyguardLock;
@@ -71,6 +76,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.Toast;
 
+import android.telephony.PhoneStateListener;
 import android.telephony.TelephonyManager;
 import java.io.UnsupportedEncodingException;
 import java.security.MessageDigest;
@@ -117,21 +123,33 @@ public class CropeActivity extends ScreenActivity implements ConnectionCallbacks
 	private SharedPreferences mPrefs = null;
 
 	private List<Intent> mIntentList = new ArrayList<Intent>();
+	
+	private HashMap<String,String> questionsAnswersList = new HashMap<String,String>();
 
 	private boolean mPreviewMode;
+	
+	private int questionNumber;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		mPrefs = PreferenceManager.getDefaultSharedPreferences(this);
 		
-		mLocationClient = new LocationClient(this, this, this);
-		
-		//disable keyguard
+		// Listen to incoming calls
+        PhoneListener phoneStateListener = new PhoneListener();
+        TelephonyManager telephonymanager = (TelephonyManager)getSystemService(TELEPHONY_SERVICE);
+        telephonymanager.listen(phoneStateListener, PhoneStateListener.LISTEN_CALL_STATE);
+				
+		// Disable keyguard
 		KeyguardManager keyguardManager = (KeyguardManager)getSystemService(Activity.KEYGUARD_SERVICE);
 		KeyguardLock lock = keyguardManager.newKeyguardLock(KEYGUARD_SERVICE);
 		lock.disableKeyguard();
-		createFileOnDevice();
+		
+        // Start location tracking
+		mLocationClient = new LocationClient(this, this, this);
+		
+		// Parse through question list
+		parseQuestionList();
 	}
 
 	@Override
@@ -186,16 +204,80 @@ public class CropeActivity extends ScreenActivity implements ConnectionCallbacks
         	return false;
         }
     }
+	
+	private void parseQuestionList() {
+		
+		XmlPullParserFactory factory = null;
+		XmlPullParser parser = null;
+		try {			
+			InputStream is = getAssets().open("default_question_list.xml");
+			
+			factory = XmlPullParserFactory.newInstance();
+			factory.setNamespaceAware(true);
+			parser = factory.newPullParser();
+
+			parser.setInput(is, null);
+
+			int eventType = parser.getEventType();
+			int questionCount = 0;
+			int answerCount = 0;
+			String text = "";
+			while (eventType != XmlPullParser.END_DOCUMENT) {
+				String tagname = parser.getName();
+				switch (eventType) {
+					case XmlPullParser.START_TAG:
+						if (tagname.equalsIgnoreCase("question")) {
+							
+						} else if (tagname.equalsIgnoreCase("answers")) {
+							answerCount = 0;
+						}
+						break;
+	
+					case XmlPullParser.TEXT:
+						text = parser.getText();
+						break;
+	
+					case XmlPullParser.END_TAG:
+						if (tagname.equalsIgnoreCase("question")) {
+							questionCount++;
+						} else if (tagname.equalsIgnoreCase("questions")) {
+							questionsAnswersList.put("questionCount", Integer.toString(questionCount));
+						} else if (tagname.equalsIgnoreCase("question_type")) {
+							questionsAnswersList.put("q_" + questionCount + "_type", text);
+						} else if (tagname.equalsIgnoreCase("text")) {
+							questionsAnswersList.put("q_" + questionCount + "_text", text);
+						} else if (tagname.equalsIgnoreCase("answer_type")) {
+							questionsAnswersList.put("q_" + questionCount + "_answerType", text);
+						} else if (tagname.equalsIgnoreCase("answer")) {
+							questionsAnswersList.put("q_" + questionCount + "_a_" + answerCount, text);
+							answerCount++;
+						} else if (tagname.equalsIgnoreCase("answers")) {
+							questionsAnswersList.put("q_" + questionCount + "_answerCount", Integer.toString(answerCount));
+						}
+
+						break;
+	
+					default:
+						break;
+				}
+				eventType = parser.next();
+			}
+
+		} catch (XmlPullParserException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		return;
+		
+	}
 
 	public void onConnected(Bundle dataBundle) {
-		Toast.makeText(this, "Connected", Toast.LENGTH_SHORT).show();
 		initContentView();
 	}
 	
 	public void onDisconnected() {
-        // Display the connection status
-        Toast.makeText(this, "Disconnected. Please re-connect.",
-                Toast.LENGTH_SHORT).show();
+
 	}
 	
     /*
@@ -240,8 +322,6 @@ public class CropeActivity extends ScreenActivity implements ConnectionCallbacks
 	}
 
 	public void writeLocation(Boolean ping) {
-		Date time_of_action = new Date();
-		String phone_id = getIMEI();
 		LocationManager lm = (LocationManager) this.getSystemService(Context.LOCATION_SERVICE);
 		Criteria crit = new Criteria();
 		crit.setAccuracy(Criteria.ACCURACY_FINE);
@@ -259,47 +339,37 @@ public class CropeActivity extends ScreenActivity implements ConnectionCallbacks
 	private void initContentView() {
 
 		time_of_start = new Date();
-		int numOfQuestions = mPrefs.getInt("questionNumber",0);
+		int numOfQuestions = Integer.parseInt(questionsAnswersList.get("questionCount"));
 		
-		int randQuestion = (int)( Math.random() * numOfQuestions);
+		Log.d("Question",Integer.toString(numOfQuestions));
+		
+		questionNumber = (int)( Math.random() * numOfQuestions);
 
-		initLayout(randQuestion);
-
-		CircularSeekBar circularSeekbar = (CircularSeekBar)findViewById(R.id.circle_bar_1);
-		circularSeekbar.setMaxProgress(100);
-		circularSeekbar.setProgress(100);
-		circularSeekbar.invalidate();
-
+		Log.d("Question",Integer.toString(questionNumber));
+		
+		initLayout(questionNumber);
+		
+		LockView lock = (LockView) findViewById(R.id.lockView1);
+		
 		final CropeActivity ca = this;
-
-        circularSeekbar.setSeekBarChangeListener(new OnSeekChangeListener() {
-            @Override
-            public void onProgressChange(CircularSeekBar view, int newProgress) {
-        	    UnlockDataSource unlockDb = new UnlockDataSource(getApplicationContext());
-        	    AnswerDataSource answerDb = new AnswerDataSource(getApplicationContext());
-        	    unlockDb.open();
-        	    answerDb.open();
-        	    TextView question = (TextView) findViewById(R.id.questionText);
-                double percent = ((double) newProgress) / view.getMaxProgress();
-                Log.d("Percent: ","" + percent);
-                if (percent < 0.333) {
-                	TextView answer = (TextView) findViewById(R.id.answer1);
-                	answerDb.createAnswer(question.getText().toString(), answer.getText().toString());
-                } else if (percent < 0.666) {
-                	TextView answer = (TextView) findViewById(R.id.answer2);
-                	answerDb.createAnswer(question.getText().toString(), answer.getText().toString());
-                } else {
-                	TextView answer = (TextView) findViewById(R.id.answer3);
-                	answerDb.createAnswer(question.getText().toString(), answer.getText().toString());
-                }
-        	    unlockDb.insertUnlockTime();
-        	    unlockDb.close();
-        	    answerDb.close();
-            	ca.finish();
-            }
-        });
-
-		String phone_id = getIMEI();
+		
+		lock.setOnAnswerListener(new OnAnswerListener(){
+			public void onAnswer(LockView view, int answerIndex) {
+				if (answerIndex > 0) {
+	        	    UnlockDataSource unlockDb = new UnlockDataSource(getApplicationContext());
+	        	    AnswerDataSource answerDb = new AnswerDataSource(getApplicationContext());
+	        	    unlockDb.open();
+	        	    answerDb.open();
+	                Log.d("MyAnswer: ","" + questionsAnswersList.get("q_" + questionNumber + "_a_" + answerIndex));
+	                answerDb.createAnswer(questionsAnswersList.get("q_" + questionNumber + "_text"),
+	                		questionsAnswersList.get("q_" + questionNumber + "_a_" + answerIndex));
+	        	    unlockDb.insertUnlockTime();
+	        	    unlockDb.close();
+	        	    answerDb.close();
+				}
+        	    ca.finish();
+			}
+		});
 
 		//refresh counts if it's a new day
 		Calendar calendar1 = Calendar.getInstance();
@@ -366,27 +436,17 @@ public class CropeActivity extends ScreenActivity implements ConnectionCallbacks
 	}
 
 	private void initLayout(int questionNumber) {
-		String showMode = mPrefs.getString(
-				getString(R.string.prefs_key_dock_show_mode),
-				getString(R.string.dock_show_mode_default_value));
-		
+
 		setContentView(R.layout.crope_lock);
 		
-		RelativeLayout frameLayout = (RelativeLayout) findViewById(R.id.crope_lock);
-		RelativeLayout.LayoutParams params;
+		LockView lock = (LockView) findViewById(R.id.lockView1);
+		lock.setQuestion(questionsAnswersList.get("q_" + questionNumber + "_text"));
 		
-		TextView question = (TextView) findViewById(R.id.questionText);
-		question.setText(mPrefs.getString("q_" + questionNumber + "_text","Question Not Found"));
-		
-		int answerCount = mPrefs.getInt("q_" + questionNumber + "_answerCount",0);
-		
-		TextView answer = (TextView) findViewById(R.id.answer1);
-		answer.setText(mPrefs.getString("q_" + questionNumber + "_a_0","Answer Not Found"));
-		TextView answer2 = (TextView) findViewById(R.id.answer2);
-		answer2.setText(mPrefs.getString("q_" + questionNumber + "_a_1","Answer Not Found"));
-		TextView answer3 = (TextView) findViewById(R.id.answer3);
-		answer3.setText(mPrefs.getString("q_" + questionNumber + "_a_2","Answer Not Found"));
-		
+		ArrayList<String> answers = new ArrayList<String>();
+		answers.add(questionsAnswersList.get("q_" + questionNumber + "_a_0"));
+		answers.add(questionsAnswersList.get("q_" + questionNumber + "_a_1"));
+		answers.add(questionsAnswersList.get("q_" + questionNumber + "_a_2"));
+		lock.setAnswers(answers);
 	}
 
 	String getIMEI() {

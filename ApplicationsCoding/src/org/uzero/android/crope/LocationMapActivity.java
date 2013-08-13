@@ -8,6 +8,7 @@ import java.util.Random;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.SupportMapFragment;
+import com.google.android.gms.maps.GoogleMap.InfoWindowAdapter;
 import com.google.android.gms.maps.GoogleMap.OnInfoWindowClickListener;
 import com.google.android.gms.maps.GoogleMap.OnMarkerClickListener;
 import com.google.android.gms.maps.GoogleMap.OnMarkerDragListener;
@@ -16,12 +17,15 @@ import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.LatLngBounds;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
+import com.google.android.gms.maps.model.Polyline;
+import com.google.android.gms.maps.model.PolylineOptions;
 
 import android.annotation.SuppressLint;
 import android.app.Dialog;
 import android.support.v4.app.DialogFragment;
 import android.app.DatePickerDialog;
 
+import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
@@ -31,6 +35,7 @@ import android.view.View;
 import android.view.ViewTreeObserver.OnGlobalLayoutListener;
 import android.view.animation.BounceInterpolator;
 import android.view.animation.Interpolator;
+import android.widget.RadioGroup;
 import android.widget.TextView;
 import android.widget.DatePicker;
 
@@ -39,6 +44,12 @@ public class LocationMapActivity extends FragmentActivity
 	
 	private long startTime = Calendar.getInstance().getTimeInMillis() - 8640000;
 	private long endTime = Calendar.getInstance().getTimeInMillis();
+	
+	private enum DatePickerType { Start, End }
+	
+	private DatePickerType currentType;
+	
+	private Polyline mMutablePolyline;
 	
 	public void setStartDate(int year, int month, int day) {
 		Calendar cal = Calendar.getInstance();
@@ -59,7 +70,11 @@ public class LocationMapActivity extends FragmentActivity
 	
 	public void onDateSet(DatePicker view, int year, int month, int day) {
 		// Do something with the date chosen by the user
-		setStartDate( year, month, day);
+		if(currentType == DatePickerType.Start) { 
+			setStartDate( year, month, day);
+		} else if (currentType == DatePickerType.End) {
+			setEndDate(year,month,day);
+		}
 	}
 	
 	public static class DatePickerFragment extends DialogFragment {
@@ -78,9 +93,16 @@ public class LocationMapActivity extends FragmentActivity
 		
 	}
 	
-	public void showDatePickerDialog(View v) {
+	public void showStartDatePickerDialog(View v) {
 	    DialogFragment newFragment = new DatePickerFragment();
 	    newFragment.show(getSupportFragmentManager(), "datePicker");
+	    currentType = DatePickerType.Start;
+	}
+	
+	public void showEndDatePickerDialog(View v) {
+	    DialogFragment newFragment = new DatePickerFragment();
+	    newFragment.show(getSupportFragmentManager(), "datePicker");
+	    currentType = DatePickerType.End;
 	}
 	
 	private GoogleMap mMap;
@@ -136,17 +158,19 @@ public class LocationMapActivity extends FragmentActivity
                 @SuppressLint("NewApi") // We check which build version we are using.
                 @Override
                 public void onGlobalLayout() {
-                	LatLngBounds.Builder builder = new LatLngBounds.Builder();
-                    for (LatLng l : locations) {
-                    	builder.include(l);
-                    }
-                    LatLngBounds bounds = builder.build();
                     if (Build.VERSION.SDK_INT < Build.VERSION_CODES.JELLY_BEAN) {
                       mapView.getViewTreeObserver().removeGlobalOnLayoutListener(this);
                     } else {
                       mapView.getViewTreeObserver().removeOnGlobalLayoutListener(this);
                     }
-                    mMap.moveCamera(CameraUpdateFactory.newLatLngBounds(bounds, 50));
+                    if (locations.size() > 0) {
+	                	LatLngBounds.Builder builder = new LatLngBounds.Builder();
+	                    for (LatLng l : locations) {
+	                    	builder.include(l);
+	                    }
+	                    LatLngBounds bounds = builder.build();
+	                    mMap.moveCamera(CameraUpdateFactory.newLatLngBounds(bounds, 50));
+                    }
                 }
             });
         }
@@ -163,12 +187,18 @@ public class LocationMapActivity extends FragmentActivity
     	db.open();
     	locations = db.getAllLocations(startTime,endTime);
         int numOfLocations = locations.size();
+        PolylineOptions options = new PolylineOptions();
         for (int i = 0; i < numOfLocations; i++) {
+        	options.add(locations.get(i));
             mMap.addMarker(new MarkerOptions()
                     .position(locations.get(i))
                     .title("Marker " + i)
                     .icon(BitmapDescriptorFactory.defaultMarker(i * 360 / numOfLocations)));
         }
+        int color = Color.HSVToColor(128, new float[] {0.5f, 1, 1});
+        mMutablePolyline = mMap.addPolyline(options
+                .color(color)
+                .width(6));
         db.close();
 
     }

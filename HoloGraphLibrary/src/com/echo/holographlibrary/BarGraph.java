@@ -104,7 +104,7 @@ public class BarGraph extends View {
 			 
 			
 			p.setColor(Color.BLACK);
-			p.setStrokeWidth(2);
+			p.setStrokeWidth(1);
 			p.setAlpha(50);
 			p.setAntiAlias(true);
 			
@@ -134,13 +134,13 @@ public class BarGraph extends View {
 				this.p.setTextSize(20);
 				canvas.drawText(p.getName(), (int)(((r.left+r.right)/2)-(this.p.measureText(p.getName())/2)), getHeight()-5, this.p);
 				if (showBarText){
-					this.p.setTextSize(40);
+					this.p.setTextSize(10);
 					this.p.setColor(Color.WHITE);
 					Rect r2 = new Rect();
-					this.p.getTextBounds("$"+p.getValue(), 0, 1, r2);
+					this.p.getTextBounds(""+p.getValue(), 0, 1, r2);
 					popup.setBounds((int)(((r.left+r.right)/2)-(this.p.measureText("$"+p.getValue())/2))-14, r.top+(r2.top-r2.bottom)-26, (int)(((r.left+r.right)/2)+(this.p.measureText("$"+p.getValue())/2))+14, r.top);
 					popup.draw(canvas);
-					canvas.drawText("$"+p.getValue(), (int)(((r.left+r.right)/2)-(this.p.measureText("$"+p.getValue())/2)), r.top-20, this.p);
+					canvas.drawText(""+p.getValue(), (int)(((r.left+r.right)/2)-(this.p.measureText("$"+p.getValue())/2)), r.top-20, this.p);
 				}
 				if (indexSelected == count && listener != null) {
 					this.p.setColor(Color.parseColor("#33B5E5"));

@@ -2,6 +2,7 @@ package org.uzero.android.crope;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.HashMap;
 
 import android.content.Context;
 import android.content.ContentValues;
@@ -35,13 +36,27 @@ public class AnswerDataSource {
 		  return database.insert(AnswerSQLiteHelper.TABLE_ANSWERS, null, values);
 	  }
 	  
-	  public List<String> getAllAnswers(String question) {
-		  List<String> answers = new ArrayList<String>();
-		  Cursor cursor = database.query(AnswerSQLiteHelper.TABLE_ANSWERS,
-			            allColumns, null, null, null, null, null);
+	  public List<String> getAllQuestions() {
+		  List<String> questions = new ArrayList<String>();
+		  String[] justQuestions = {AnswerSQLiteHelper.COLUMN_QUESTION};
+		  Cursor cursor = database.query(true,AnswerSQLiteHelper.TABLE_ANSWERS,
+				  justQuestions, null, null, null, null, null, null);
 		  cursor.moveToFirst();
 		  while (!cursor.isAfterLast()) {
-			  answers.add(cursor.getString(2));
+			  questions.add(cursor.getString(0));
+			  cursor.moveToNext();
+		  }
+		  // Make sure to close the cursor
+		  cursor.close();
+		  return questions;
+	  }
+	  
+	  public HashMap<String,Integer> getAllAnswers(String question) {
+		  HashMap<String,Integer> answers = new HashMap<String,Integer>();
+		  Cursor cursor= database.rawQuery("select answer, count(*) from answers where question='" + question + "' group by answer", null);
+		  cursor.moveToFirst();
+		  while (!cursor.isAfterLast()) {
+			  answers.put(cursor.getString(0), cursor.getInt(1));
 			  cursor.moveToNext();
 		  }
 		  // Make sure to close the cursor

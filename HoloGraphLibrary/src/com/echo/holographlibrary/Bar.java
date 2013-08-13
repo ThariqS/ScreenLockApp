@@ -30,7 +30,7 @@ import android.graphics.Region;
 public class Bar {
 	private int color;
 	private String name;
-	private float value;
+	private int value;
 	private Path path;
 	private Region region;
 	
@@ -46,10 +46,10 @@ public class Bar {
 	public void setName(String name) {
 		this.name = name;
 	}
-	public float getValue() {
+	public int getValue() {
 		return value;
 	}
-	public void setValue(float value) {
+	public void setValue(int value) {
 		this.value = value;
 	}
 	public Path getPath() {

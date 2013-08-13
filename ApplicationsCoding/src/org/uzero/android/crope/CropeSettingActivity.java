@@ -58,7 +58,6 @@ public class CropeSettingActivity extends ActionBarPreferenceActivity {
 		intent.setAction(ScreenService.ACTION_LOCK_RESTORE);
         bindService(intent, mScreenServiceConn, BIND_AUTO_CREATE);
         
-        parseQuestionList();
     }
 
     @Override
@@ -115,76 +114,6 @@ public class CropeSettingActivity extends ActionBarPreferenceActivity {
 		return super.onPreferenceTreeClick(preferenceScreen, preference);
 	}
 	
-	private void parseQuestionList() {
-		
-		XmlPullParserFactory factory = null;
-		XmlPullParser parser = null;
-		try {
-			SharedPreferences.Editor editor = PreferenceManager.getDefaultSharedPreferences(this).edit();
-			
-			InputStream is = getAssets().open("default_question_list.xml");
-			
-			factory = XmlPullParserFactory.newInstance();
-			factory.setNamespaceAware(true);
-			parser = factory.newPullParser();
-
-			parser.setInput(is, null);
-
-			int eventType = parser.getEventType();
-			int questionNumber = 0;
-			int answerCount = 0;
-			String text = "";
-			while (eventType != XmlPullParser.END_DOCUMENT) {
-				String tagname = parser.getName();
-				switch (eventType) {
-					case XmlPullParser.START_TAG:
-						if (tagname.equalsIgnoreCase("question")) {
-							// create a new instance of employee
-							
-						} else if (tagname.equalsIgnoreCase("answers")) {
-							answerCount = 0;
-						}
-						break;
-	
-					case XmlPullParser.TEXT:
-						text = parser.getText();
-						break;
-	
-					case XmlPullParser.END_TAG:
-						if (tagname.equalsIgnoreCase("question")) {
-							questionNumber++;
-						} else if (tagname.equalsIgnoreCase("questions")) {
-							editor.putInt("questionNumber", questionNumber+1);
-						} else if (tagname.equalsIgnoreCase("question_type")) {
-							editor.putString("q_" + questionNumber + "_type", text);
-						} else if (tagname.equalsIgnoreCase("text")) {
-							editor.putString("q_" + questionNumber + "_text", text);
-						} else if (tagname.equalsIgnoreCase("answer_type")) {
-							editor.putString("q_" + questionNumber + "_answerType", text);
-						} else if (tagname.equalsIgnoreCase("answer")) {
-							editor.putString("q_" + questionNumber + "_a_" + answerCount, text);
-							answerCount++;
-						} else if (tagname.equalsIgnoreCase("answers")) {
-							editor.putInt("q_" + questionNumber + "_answerCount", answerCount+1);
-						}
-
-						break;
-	
-					default:
-						break;
-				}
-				eventType = parser.next();
-			}
-			editor.commit();
-
-		} catch (XmlPullParserException e) {
-			e.printStackTrace();
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-		return;
-		
-	}
 
     private void toggleScreenActivity() {
     	if(mScreenService == null) {

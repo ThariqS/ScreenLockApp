@@ -32,13 +32,15 @@
       android:layout_width="match_parent"
       android:layout_height="match_parent"
       class="com.google.android.gms.maps.SupportMapFragment"/>
+
     <LinearLayout
-      android:layout_width="wrap_content"
-      android:layout_height="wrap_content"
-      android:layout_gravity="bottom|right"
-      android:background="#80000000"
-      android:orientation="vertical"
-      android:padding="5dp">
+        android:layout_width="226dp"
+        android:layout_height="136dp"
+        android:layout_gravity="bottom|right"
+        android:background="#80000000"
+        android:orientation="vertical"
+        android:padding="5dp" >
+
       <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
@@ -46,14 +48,14 @@
 		  android:layout_width="wrap_content" 
 		  android:layout_height="wrap_content"
 		  android:layout_weight="0.5"
-		  android:text="Select Start Date" 
-		  android:onClick="showDatePickerDialog" />
+		  android:text="Start Date" 
+		  android:onClick="showStartDatePickerDialog" />
         <Button
           android:layout_width="wrap_content"
           android:layout_height="wrap_content"
           android:layout_weight="0.5"
-          android:onClick="onClearMap"
-          android:text="Select End Date"/>
+          android:onClick="showEndDatePickerDialog"
+          android:text="End Date"/>
       </LinearLayout>
       <RadioGroup
         android:id="@+id/custom_info_window_options"

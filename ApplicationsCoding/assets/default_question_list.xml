@@ -22,7 +22,7 @@
     </question>
     <question>
         <question_type>MOOD</question_type>
-        <text>Have are you feeling right now?</text>
+        <text>How are you feeling right now?</text>
         <answer_type>multiple</answer_type>
         <answers>
             <answer>Happy</answer>

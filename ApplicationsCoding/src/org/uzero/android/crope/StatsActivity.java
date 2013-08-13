@@ -2,11 +2,17 @@ package org.uzero.android.crope;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.HashMap;
+import java.util.Map;
 
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
 import android.util.Log;
+import android.view.ViewGroup;
+import android.widget.TextView;
+import android.widget.LinearLayout.LayoutParams;
+import android.view.Gravity;
 
 import java.sql.Timestamp;
 
@@ -16,10 +22,23 @@ import com.echo.holographlibrary.PieSlice;
 import com.echo.holographlibrary.PieGraph;
 
 public class StatsActivity extends FragmentActivity {
+	
+	private static String[] colorList = {"#99CC00","#FFBB33","#AA66CC","#FFBB33","#AA66CC","#99CC00"};
+	
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        
         setContentView(R.layout.stats);
+        ViewGroup layout = (ViewGroup) findViewById(R.id.scrollcontainer);
+        
+        TextView tv = new TextView(this);
+        LayoutParams params = new LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT);
+        params.gravity = Gravity.CENTER;
+        tv.setLayoutParams(params);
+        tv.setText("Daily Unlocks");
+        layout.addView(tv);
+        
 	    UnlockDataSource unlockDb = new UnlockDataSource(getApplicationContext());
 	    unlockDb.open();
         ArrayList<Bar> points = new ArrayList<Bar>();
@@ -33,46 +52,47 @@ public class StatsActivity extends FragmentActivity {
         List<Timestamp> times = unlockDb.getAllUnlockTimes();
         int numOfUnlocks = times.size();
         for (int i = 0; i < numOfUnlocks; i++) {
-        	//Log.d("Unlock Times", times.get(i).getHours()+":"+ times.get(i).getMinutes());
         	Bar b = points.get(times.get(i).getHours());
         	b.setValue(b.getValue() + 1);
         }
-
-        BarGraph g = (BarGraph)findViewById(R.id.graph);
-        g.setShowBarText(false);
-        g.setBars(points);
         unlockDb.close();
+        
+        BarGraph g = new BarGraph(this);
+        g.setShowBarText(true);
+        g.setBars(points);
+        g.setLayoutParams(new LayoutParams(LayoutParams.MATCH_PARENT, 200));
+        layout.addView(g);
         
 	    AnswerDataSource answerDb = new AnswerDataSource(getApplicationContext());
 	    answerDb.open();
 	    
-	    List<String> answers = answerDb.getAllAnswers("Have you exercised today?");
-	    int numOfAnswers = answers.size();
-	    int[] answerCounts = new int[3];
-        for (int i = 0; i < numOfAnswers; i++) {
-        	Log.d("Answers", answers.get(i));
-        	if (answers.get(i).equals("Yes")) {
-        		answerCounts[0]++;
-        	} else if (answers.get(i).equals("No")) {
-        		answerCounts[1]++;
-        	} else if (answers.get(i).equals("Yes, but later")) {
-        		answerCounts[2]++;
-        	}
-        }
-        Log.d("Counts", answerCounts[0]+":"+ answerCounts[1]+":"+answerCounts[2]);
-        PieGraph pg = (PieGraph)findViewById(R.id.pieChart);
-        PieSlice slice = new PieSlice();
-        slice.setColor(Color.parseColor("#99CC00"));
-        slice.setValue(answerCounts[0]);
-        pg.addSlice(slice);
-        slice = new PieSlice();
-        slice.setColor(Color.parseColor("#FFBB33"));
-        slice.setValue(answerCounts[1]);
-        pg.addSlice(slice);
-        slice = new PieSlice();
-        slice.setColor(Color.parseColor("#AA66CC"));
-        slice.setValue(answerCounts[2]);
-        pg.addSlice(slice);
+	    List<String> questions = answerDb.getAllQuestions();
+	    
+	    for (String q: questions) {
+	    	
+	        TextView questionView = new TextView(this);
+	        questionView.setLayoutParams(params);
+	        questionView.setText(q);
+	        layout.addView(questionView);
+	        Log.d("Question",q);
+	    	
+	    	HashMap<String,Integer> answers = answerDb.getAllAnswers(q);
+	        PieGraph pg = new PieGraph(this);
+	        int colorCount = 0;
+		    for (Map.Entry<String, Integer> entry : answers.entrySet()) {
+		        String key = entry.getKey();
+		        int value = entry.getValue();
+		        Log.d("Debug",key + " : " + Integer.toString(value));
+		        PieSlice slice = new PieSlice();
+		        slice.setColor(Color.parseColor(colorList[colorCount]));
+		        slice.setValue(value);
+		        slice.setTitle(key);
+		        pg.addSlice(slice);
+		        colorCount++;
+		    }
+	        pg.setLayoutParams(new LayoutParams(LayoutParams.MATCH_PARENT, 200));
+	        layout.addView(pg);
+	    }
         
         answerDb.close();
     }
